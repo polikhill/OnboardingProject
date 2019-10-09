@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E70234DF29F0039814A /* ProfilesViewController.swift */; };
+		DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E74234DF2C20039814A /* AppCoordinator.swift */; };
 		DD67A34D234DEC7E003F0257 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67A34C234DEC7E003F0257 /* AppDelegate.swift */; };
-		DD67A34F234DEC7E003F0257 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67A34E234DEC7E003F0257 /* ViewController.swift */; };
-		DD67A352234DEC7E003F0257 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD67A350234DEC7E003F0257 /* Main.storyboard */; };
 		DD67A354234DEC7F003F0257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD67A353234DEC7F003F0257 /* Assets.xcassets */; };
 		DD67A357234DEC7F003F0257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD67A355234DEC7F003F0257 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD591E70234DF29F0039814A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
+		DD591E74234DF2C20039814A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DD67A349234DEC7E003F0257 /* OnboardingProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnboardingProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD67A34C234DEC7E003F0257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DD67A34E234DEC7E003F0257 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DD67A351234DEC7E003F0257 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DD67A353234DEC7F003F0257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD67A356234DEC7F003F0257 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD67A358234DEC7F003F0257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +35,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD591E72234DF2A80039814A /* Profiles */ = {
+			isa = PBXGroup;
+			children = (
+				DD591E70234DF29F0039814A /* ProfilesViewController.swift */,
+			);
+			path = Profiles;
+			sourceTree = "<group>";
+		};
+		DD591E73234DF2B30039814A /* AppCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				DD591E74234DF2C20039814A /* AppCoordinator.swift */,
+			);
+			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
 		DD67A340234DEC7E003F0257 = {
 			isa = PBXGroup;
 			children = (
@@ -54,14 +70,46 @@
 		DD67A34B234DEC7E003F0257 /* OnboardingProject */ = {
 			isa = PBXGroup;
 			children = (
+				DD67A360234DEFA8003F0257 /* App */,
+				DD67A35E234DEF9D003F0257 /* Base */,
+				DD67A35F234DEFA2003F0257 /* Classes */,
+				DD67A361234DEFAC003F0257 /* Resources */,
+			);
+			path = OnboardingProject;
+			sourceTree = "<group>";
+		};
+		DD67A35E234DEF9D003F0257 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		DD67A35F234DEFA2003F0257 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DD591E73234DF2B30039814A /* AppCoordinator */,
+				DD591E72234DF2A80039814A /* Profiles */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		DD67A360234DEFA8003F0257 /* App */ = {
+			isa = PBXGroup;
+			children = (
 				DD67A34C234DEC7E003F0257 /* AppDelegate.swift */,
-				DD67A34E234DEC7E003F0257 /* ViewController.swift */,
-				DD67A350234DEC7E003F0257 /* Main.storyboard */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DD67A361234DEFAC003F0257 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				DD67A353234DEC7F003F0257 /* Assets.xcassets */,
 				DD67A355234DEC7F003F0257 /* LaunchScreen.storyboard */,
 				DD67A358234DEC7F003F0257 /* Info.plist */,
 			);
-			path = OnboardingProject;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,7 +172,6 @@
 			files = (
 				DD67A357234DEC7F003F0257 /* LaunchScreen.storyboard in Resources */,
 				DD67A354234DEC7F003F0257 /* Assets.xcassets in Resources */,
-				DD67A352234DEC7E003F0257 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +182,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD67A34F234DEC7E003F0257 /* ViewController.swift in Sources */,
+				DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */,
+				DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */,
 				DD67A34D234DEC7E003F0257 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,14 +191,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DD67A350234DEC7E003F0257 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DD67A351234DEC7E003F0257 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DD67A355234DEC7F003F0257 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -284,7 +324,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6QJD9S5LP3;
-				INFOPLIST_FILE = OnboardingProject/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/OnboardingProject/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +342,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6QJD9S5LP3;
-				INFOPLIST_FILE = OnboardingProject/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/OnboardingProject/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
