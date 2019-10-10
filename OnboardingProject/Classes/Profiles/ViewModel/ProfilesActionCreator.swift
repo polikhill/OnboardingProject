@@ -10,19 +10,26 @@ import Foundation
 import RxSwift
 
 extension ProfilesList {
+  
+  final class ActionCreator {
+    let actions: Observable<ProfilesAction>
     
-    final class ActionCreator {
-        let actions: Observable<ProfilesAction>
-        
-        init(inputs: ProfilesViewModel.Inputs) {
-            let addNewCellAction = inputs.addNewCell
-                .map ({ _ -> ProfilesAction in
-                    return ProfilesList.AddNewProfile(profile: "")
-                })
-            
-            self.actions = Observable.merge(
-                addNewCellAction
-            )
-        }
+    init(inputs: ProfilesViewModel.Inputs) {
+      
+      let initalSetupActions = inputs.viewWillAppear
+        .map({ _ -> ProfilesAction in
+          return ProfilesList.InialSetup()
+        })
+      
+      let addNewCellAction = inputs.addNewCell
+        .map ({ _ -> ProfilesAction in
+          return ProfilesList.AddNewProfile(profile: ProfileInfo(name: "", surname: "", room: ""))
+        })
+      
+      self.actions = Observable.merge(
+        initalSetupActions,
+        addNewCellAction
+      )
     }
+  }
 }

@@ -8,16 +8,13 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 final class ProfilesViewController: UIViewController {
 
     private let contentView = ProfilesView()
     private let disposeBag = DisposeBag()
     private let viewModel: ProfilesList.ProfilesViewModel
-    
-    struct Props {
-        let contentViewProps: ProfilesView.Props
-    }
     
     init() {
         viewModel = ProfilesList.ProfilesViewModel()
@@ -38,9 +35,22 @@ final class ProfilesViewController: UIViewController {
     }
     
     private func setupBindings() {
-//        let inputs = ProfilesList.ProfilesViewModel.Inputs(
-//            viewWillAppear: rx.methodInvoked(#selector(viewWillAppear(_:))).voidValues(),
-//            addNewCell: contentView.
-//        )
-    }
+        let inputs = ProfilesList.ProfilesViewModel.Inputs(
+            viewWillAppear: rx.methodInvoked(#selector(viewWillAppear(_:))).voidValues(),
+            addNewCell: contentView.rx.addNewCell
+        )
+      
+      let outputs = viewModel.makeOutputs(from: inputs)
+      
+      outputs.props
+        .observeForUI()
+        .subscribe(onNext: { [unowned self ] props in
+          self.contentView.render(props: props)
+        })
+        .disposed(by: disposeBag)
+      
+      outputs.stateChanged
+        .subscribe()
+        .disposed(by: disposeBag)
+  }
 }

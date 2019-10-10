@@ -24,7 +24,7 @@ final class ProfilesView: UIView {
     
     struct Props: Diffable {
         let addingCellProps: DiffableBox<AddingCell.Props>
-        let profileCellProps: [String]
+        let profileCellProps: [DiffableBox<ProfilesList.ProfileProps>]
         
         var diffIdentifier: String {
             return "\(Date().timeIntervalSince1970)"
@@ -67,8 +67,8 @@ final class ProfilesView: UIView {
         adapter.dataSource = self
     }
     
-    func render(props: Props) {
-        renderedProps = DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
+    func render(props: DiffableBox<Props>) {
+        renderedProps = props
         adapter.performUpdates(animated: true)
     }
 }

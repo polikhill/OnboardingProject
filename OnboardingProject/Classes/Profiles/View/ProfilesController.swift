@@ -28,7 +28,7 @@ extension ProfilesController: ListBindingSectionControllerDataSource {
     viewModelsFor object: Any
     ) -> [ListDiffable] {
     guard let object = object as? DiffableBox<ProfilesView.Props> else { return [] }
-    return [object.value.addingCellProps]
+    return object.value.profileCellProps + [object.value.addingCellProps]
   }
   
   func sectionController(

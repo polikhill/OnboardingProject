@@ -9,35 +9,37 @@
 import Foundation
 
 extension ProfilesList {
+  
+  typealias Store = ReduxStore<State, ProfilesAction>
+  
+  struct State {
+    var profiles: [ProfileInfo]
+  }
+  
+  struct InialSetup: ProfilesAction { }
+  
+  struct AddNewCellTap: ProfilesAction { }
+  
+  struct AddNewProfile: ProfilesAction {
+    let profile: ProfileInfo
+  }
+  
+  struct ValidationaPassed: ProfilesAction { }
+  
+  struct ValidationFailed: ProfilesAction {
+    let index: Int
+  }
+  
+  static func reduce(state: State, action: ProfilesAction) -> State {
+    var newState = state
     
-    typealias Store = ReduxStore<State, ProfilesAction>
-    
-    struct State {
-        var profiles: [String]
+    switch action {
+    case let action as AddNewProfile:
+      newState.profiles.insert(action.profile, at: 0)
+    default:
+      break
     }
     
-    struct AddNewCellTap: ProfilesAction { }
-    
-    struct AddNewProfile: ProfilesAction {
-        let profile: String
-    }
-    
-    struct ValidationaPassed: ProfilesAction { }
-    
-    struct ValidationFailed: ProfilesAction {
-        let index: Int
-    }
-
-    static func reduce(state: State, action: ProfilesAction) -> State {
-        var newState = state
-        
-        switch action {
-        case let action as AddNewProfile:
-            newState.profiles.insert(action.profile, at: 0)
-        default:
-            break
-        }
-        
-        return newState
-    }
+    return newState
+  }
 }
