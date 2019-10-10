@@ -7,14 +7,33 @@
 //
 
 import UIKit
+import IGListKit
 
 final class ProfilesView: UIView {
 
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    private var renderedProps: DiffableBox<Props>?
+    private lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
+    }()
+    
+    struct Props: Diffable {
+        var addingCellProps: DiffableBox<AddingCell.Props> {
+            let props = AddingCell.Props()
+            return DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
+        }
+        var diffIdentifier: String {
+            return "\(Date().timeIntervalSince1970)"
+        }
+        static func == (lhs: ProfilesView.Props, rhs: ProfilesView.Props) -> Bool {
+            return lhs.diffIdentifier == rhs.diffIdentifier
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupIGListAdapter()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -22,7 +41,7 @@ final class ProfilesView: UIView {
     }
     
     private func setupUI() {
-        backgroundColor = .white
+        collectionView.backgroundColor = .white
         
         addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,8 +54,31 @@ final class ProfilesView: UIView {
         
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .vertical
-//        collectionLayout.minimumInteritemSpacing = NewsCell.spaceBetweeenCells
-//        collectionLayout.minimumLineSpacing = NewsCell.spaceBetweeenCells
         collectionView.collectionViewLayout = collectionLayout
+    }
+    
+    private func setupIGListAdapter() {
+        adapter.collectionView = collectionView
+        adapter.dataSource = self
+    }
+    
+    func render(props: Props) {
+        renderedProps = DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
+        adapter.performUpdates(animated: true)
+    }
+}
+
+extension ProfilesView: ListAdapterDataSource {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        guard let renderedProps = renderedProps else { return [] }
+        return [renderedProps]
+    }
+    
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        return ProfilesController()
+    }
+    
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        return nil
     }
 }

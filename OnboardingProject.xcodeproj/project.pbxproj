@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD305639234F026C00505D65 /* AddingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD305637234F026C00505D65 /* AddingCell.swift */; };
+		DD30563A234F026C00505D65 /* AddingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD305638234F026C00505D65 /* AddingCell.xib */; };
+		DD30563D234F09D900505D65 /* IGListKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30563C234F09D900505D65 /* IGListKitExtensions.swift */; };
+		DD305640234F0BAF00505D65 /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD30563F234F0BAF00505D65 /* ProfileInfo.swift */; };
+		DD305642234F0C4300505D65 /* MeetingRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD305641234F0C4300505D65 /* MeetingRooms.swift */; };
+		DD305644234F0CF700505D65 /* DiffableBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD305643234F0CF700505D65 /* DiffableBox.swift */; };
+		DD305647234F0D5700505D65 /* ReduxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD305646234F0D5700505D65 /* ReduxStore.swift */; };
 		DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E70234DF29F0039814A /* ProfilesViewController.swift */; };
 		DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E74234DF2C20039814A /* AppCoordinator.swift */; };
 		DD591E77234DF7570039814A /* ProfilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E76234DF7570039814A /* ProfilesController.swift */; };
@@ -22,6 +29,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD305637234F026C00505D65 /* AddingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingCell.swift; sourceTree = "<group>"; };
+		DD305638234F026C00505D65 /* AddingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddingCell.xib; sourceTree = "<group>"; };
+		DD30563C234F09D900505D65 /* IGListKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGListKitExtensions.swift; sourceTree = "<group>"; };
+		DD30563F234F0BAF00505D65 /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
+		DD305641234F0C4300505D65 /* MeetingRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRooms.swift; sourceTree = "<group>"; };
+		DD305643234F0CF700505D65 /* DiffableBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableBox.swift; sourceTree = "<group>"; };
+		DD305646234F0D5700505D65 /* ReduxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxStore.swift; sourceTree = "<group>"; };
 		DD591E70234DF29F0039814A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		DD591E74234DF2C20039814A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DD591E76234DF7570039814A /* ProfilesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesController.swift; sourceTree = "<group>"; };
@@ -55,6 +69,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD305636234F01FF00505D65 /* CollectionCells */ = {
+			isa = PBXGroup;
+			children = (
+				DD305637234F026C00505D65 /* AddingCell.swift */,
+				DD305638234F026C00505D65 /* AddingCell.xib */,
+			);
+			path = CollectionCells;
+			sourceTree = "<group>";
+		};
+		DD30563B234F09BA00505D65 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DD30563C234F09D900505D65 /* IGListKitExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DD30563E234F0B9A00505D65 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DD30563F234F0BAF00505D65 /* ProfileInfo.swift */,
+				DD305641234F0C4300505D65 /* MeetingRooms.swift */,
+				DD305643234F0CF700505D65 /* DiffableBox.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DD305645234F0D4A00505D65 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				DD305646234F0D5700505D65 /* ReduxStore.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		DD591E72234DF2A80039814A /* Profiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +124,7 @@
 		DD591E7C234DFAA60039814A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DD305636234F01FF00505D65 /* CollectionCells */,
 				DD591E70234DF29F0039814A /* ProfilesViewController.swift */,
 				DD591E76234DF7570039814A /* ProfilesController.swift */,
 				DD591E78234DF77B0039814A /* ProfilesView.swift */,
@@ -95,8 +145,8 @@
 			children = (
 			);
 			path = Middlewares;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		DD591E7F234DFB8C0039814A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +183,8 @@
 				DD67A360234DEFA8003F0257 /* App */,
 				DD67A35E234DEF9D003F0257 /* Base */,
 				DD67A35F234DEFA2003F0257 /* Classes */,
+				DD305645234F0D4A00505D65 /* Library */,
+				DD30563E234F0B9A00505D65 /* Models */,
 				DD67A361234DEFAC003F0257 /* Resources */,
 			);
 			path = OnboardingProject;
@@ -141,6 +193,7 @@
 		DD67A35E234DEF9D003F0257 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				DD30563B234F09BA00505D65 /* Extensions */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -233,6 +286,7 @@
 			files = (
 				DD67A357234DEC7F003F0257 /* LaunchScreen.storyboard in Resources */,
 				DD67A354234DEC7F003F0257 /* Assets.xcassets in Resources */,
+				DD30563A234F026C00505D65 /* AddingCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +330,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD591E79234DF77B0039814A /* ProfilesView.swift in Sources */,
+				DD305640234F0BAF00505D65 /* ProfileInfo.swift in Sources */,
 				DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */,
+				DD305642234F0C4300505D65 /* MeetingRooms.swift in Sources */,
+				DD305639234F026C00505D65 /* AddingCell.swift in Sources */,
 				DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */,
+				DD305644234F0CF700505D65 /* DiffableBox.swift in Sources */,
+				DD305647234F0D5700505D65 /* ReduxStore.swift in Sources */,
 				DD67A34D234DEC7E003F0257 /* AppDelegate.swift in Sources */,
+				DD30563D234F09D900505D65 /* IGListKitExtensions.swift in Sources */,
 				DD591E77234DF7570039814A /* ProfilesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

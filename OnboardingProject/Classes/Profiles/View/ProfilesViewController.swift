@@ -7,12 +7,23 @@
 //
 
 import UIKit
+import RxSwift
 
 final class ProfilesViewController: UIViewController {
 
+    private let contentView = ProfilesView()
+    private let disposeBag = DisposeBag()
+    
+    struct Props {
+        let contentViewProps: ProfilesView.Props
+    }
+    
+    override func loadView() {
+        view = contentView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        contentView.render(props: ProfilesView.Props())
     }
 }
