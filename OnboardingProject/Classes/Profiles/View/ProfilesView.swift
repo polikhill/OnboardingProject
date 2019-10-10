@@ -8,23 +8,28 @@
 
 import UIKit
 import IGListKit
+import RxSwift
+import RxCocoa
 
 final class ProfilesView: UIView {
-
+    
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    fileprivate let addNewCellSubject = PublishSubject<Void>()
+    private let disposeBag = DisposeBag()
     private var renderedProps: DiffableBox<Props>?
+    
     private lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
     }()
     
     struct Props: Diffable {
-        var addingCellProps: DiffableBox<AddingCell.Props> {
-            let props = AddingCell.Props()
-            return DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
-        }
+        let addingCellProps: DiffableBox<AddingCell.Props>
+        let profileCellProps: [String]
+        
         var diffIdentifier: String {
             return "\(Date().timeIntervalSince1970)"
         }
+        
         static func == (lhs: ProfilesView.Props, rhs: ProfilesView.Props) -> Bool {
             return lhs.diffIdentifier == rhs.diffIdentifier
         }
@@ -75,10 +80,21 @@ extension ProfilesView: ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return ProfilesController()
+        let profilesController = ProfilesController()
+        profilesController.rx.addCell
+            .bind(to: addNewCellSubject)
+            .disposed(by: disposeBag)
+        
+        return profilesController
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
+    }
+}
+
+extension Reactive where Base: ProfilesView {
+    var addNewCell: Observable<Void> {
+        return base.addNewCellSubject.asObservable()
     }
 }

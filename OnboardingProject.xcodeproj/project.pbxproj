@@ -14,6 +14,13 @@
 		DD305642234F0C4300505D65 /* MeetingRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD305641234F0C4300505D65 /* MeetingRooms.swift */; };
 		DD305644234F0CF700505D65 /* DiffableBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD305643234F0CF700505D65 /* DiffableBox.swift */; };
 		DD305647234F0D5700505D65 /* ReduxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD305646234F0D5700505D65 /* ReduxStore.swift */; };
+		DD383DE5234F3B770076F71A /* ProfilesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DE4234F3B770076F71A /* ProfilesStore.swift */; };
+		DD383DE7234F3BBA0076F71A /* ProfilesNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DE6234F3BBA0076F71A /* ProfilesNamespace.swift */; };
+		DD383DE9234F3C120076F71A /* ProfilesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DE8234F3C120076F71A /* ProfilesAction.swift */; };
+		DD383DEB234F3F820076F71A /* ProfilesProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DEA234F3F820076F71A /* ProfilesProps.swift */; };
+		DD383DED234F45100076F71A /* ProfilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DEC234F45100076F71A /* ProfilesViewModel.swift */; };
+		DD383DEF234F47770076F71A /* ProfilesActionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DEE234F47770076F71A /* ProfilesActionCreator.swift */; };
+		DD383DF1234F4C550076F71A /* RxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DF0234F4C550076F71A /* RxExtensions.swift */; };
 		DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E70234DF29F0039814A /* ProfilesViewController.swift */; };
 		DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E74234DF2C20039814A /* AppCoordinator.swift */; };
 		DD591E77234DF7570039814A /* ProfilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E76234DF7570039814A /* ProfilesController.swift */; };
@@ -36,6 +43,13 @@
 		DD305641234F0C4300505D65 /* MeetingRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRooms.swift; sourceTree = "<group>"; };
 		DD305643234F0CF700505D65 /* DiffableBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableBox.swift; sourceTree = "<group>"; };
 		DD305646234F0D5700505D65 /* ReduxStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxStore.swift; sourceTree = "<group>"; };
+		DD383DE4234F3B770076F71A /* ProfilesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesStore.swift; sourceTree = "<group>"; };
+		DD383DE6234F3BBA0076F71A /* ProfilesNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesNamespace.swift; sourceTree = "<group>"; };
+		DD383DE8234F3C120076F71A /* ProfilesAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesAction.swift; sourceTree = "<group>"; };
+		DD383DEA234F3F820076F71A /* ProfilesProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesProps.swift; sourceTree = "<group>"; };
+		DD383DEC234F45100076F71A /* ProfilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewModel.swift; sourceTree = "<group>"; };
+		DD383DEE234F47770076F71A /* ProfilesActionCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesActionCreator.swift; sourceTree = "<group>"; };
+		DD383DF0234F4C550076F71A /* RxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtensions.swift; sourceTree = "<group>"; };
 		DD591E70234DF29F0039814A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		DD591E74234DF2C20039814A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DD591E76234DF7570039814A /* ProfilesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesController.swift; sourceTree = "<group>"; };
@@ -82,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				DD30563C234F09D900505D65 /* IGListKitExtensions.swift */,
+				DD383DF0234F4C550076F71A /* RxExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -107,6 +122,8 @@
 		DD591E72234DF2A80039814A /* Profiles */ = {
 			isa = PBXGroup;
 			children = (
+				DD383DE8234F3C120076F71A /* ProfilesAction.swift */,
+				DD383DE6234F3BBA0076F71A /* ProfilesNamespace.swift */,
 				DD591E7D234DFAAD0039814A /* ViewModel */,
 				DD591E7C234DFAA60039814A /* View */,
 			);
@@ -136,6 +153,10 @@
 			isa = PBXGroup;
 			children = (
 				DD591E7E234DFAB70039814A /* Middlewares */,
+				DD383DE4234F3B770076F71A /* ProfilesStore.swift */,
+				DD383DEA234F3F820076F71A /* ProfilesProps.swift */,
+				DD383DEC234F45100076F71A /* ProfilesViewModel.swift */,
+				DD383DEE234F47770076F71A /* ProfilesActionCreator.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -331,15 +352,22 @@
 			files = (
 				DD591E79234DF77B0039814A /* ProfilesView.swift in Sources */,
 				DD305640234F0BAF00505D65 /* ProfileInfo.swift in Sources */,
+				DD383DED234F45100076F71A /* ProfilesViewModel.swift in Sources */,
 				DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */,
+				DD383DEF234F47770076F71A /* ProfilesActionCreator.swift in Sources */,
+				DD383DEB234F3F820076F71A /* ProfilesProps.swift in Sources */,
 				DD305642234F0C4300505D65 /* MeetingRooms.swift in Sources */,
 				DD305639234F026C00505D65 /* AddingCell.swift in Sources */,
+				DD383DE9234F3C120076F71A /* ProfilesAction.swift in Sources */,
 				DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */,
 				DD305644234F0CF700505D65 /* DiffableBox.swift in Sources */,
 				DD305647234F0D5700505D65 /* ReduxStore.swift in Sources */,
 				DD67A34D234DEC7E003F0257 /* AppDelegate.swift in Sources */,
+				DD383DF1234F4C550076F71A /* RxExtensions.swift in Sources */,
+				DD383DE7234F3BBA0076F71A /* ProfilesNamespace.swift in Sources */,
 				DD30563D234F09D900505D65 /* IGListKitExtensions.swift in Sources */,
 				DD591E77234DF7570039814A /* ProfilesController.swift in Sources */,
+				DD383DE5234F3B770076F71A /* ProfilesStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
