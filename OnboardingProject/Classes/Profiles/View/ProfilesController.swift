@@ -36,13 +36,19 @@ extension ProfilesController: ListBindingSectionControllerDataSource {
     cellForViewModel viewModel: Any, at index: Int
     ) -> UICollectionViewCell & ListBindable {
     
-    guard let cell = collectionContext?.cell(type: AddingCell.self, index: index, for: self) else { fatalError() }
-    
-    cell.rx.addTap
-      .bind(to: addNewCellSubject)
-      .disposed(by: disposeBag)
-    
-    return cell
+    switch viewModel {
+    case is DiffableBox<ProfileCell.Props>:
+      guard let cell = collectionContext?.cell(type: ProfileCell.self, index: index, for: self) else { fatalError() }
+      return cell
+    case is DiffableBox<AddingCell.Props>:
+      guard let cell = collectionContext?.cell(type: AddingCell.self, index: index, for: self) else { fatalError() }
+      
+      cell.rx.addTap
+        .bind(to: addNewCellSubject)
+        .disposed(by: disposeBag)
+      return cell
+    default: fatalError() 
+    }
   }
   
   func sectionController(
@@ -51,7 +57,16 @@ extension ProfilesController: ListBindingSectionControllerDataSource {
     ) -> CGSize {
     
     guard let width = collectionContext?.containerSize.width else { fatalError() }
-    return CGSize(width: width, height: AddingCell.height)
+    
+    var height: CGFloat {
+      switch viewModel {
+      case is DiffableBox<ProfileCell.Props>: return ProfileCell.height
+      case is DiffableBox<AddingCell.Props>: return AddingCell.height
+      default: return 0
+      }
+    }
+    
+    return CGSize(width: width, height: height)
   }
 }
 
