@@ -11,6 +11,11 @@
 		DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E74234DF2C20039814A /* AppCoordinator.swift */; };
 		DD591E77234DF7570039814A /* ProfilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E76234DF7570039814A /* ProfilesController.swift */; };
 		DD591E79234DF77B0039814A /* ProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E78234DF77B0039814A /* ProfilesView.swift */; };
+		DD591E8D234DFDC50039814A /* IGListKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD591E82234DFB8D0039814A /* IGListKit.framework */; };
+		DD591E8E234DFDC50039814A /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD591E89234DFD3C0039814A /* RxBlocking.framework */; };
+		DD591E8F234DFDC50039814A /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD591E81234DFB8D0039814A /* RxCocoa.framework */; };
+		DD591E90234DFDC50039814A /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD591E88234DFD3C0039814A /* RxRelay.framework */; };
+		DD591E91234DFDC50039814A /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD591E80234DFB8D0039814A /* RxSwift.framework */; };
 		DD67A34D234DEC7E003F0257 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67A34C234DEC7E003F0257 /* AppDelegate.swift */; };
 		DD67A354234DEC7F003F0257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD67A353234DEC7F003F0257 /* Assets.xcassets */; };
 		DD67A357234DEC7F003F0257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD67A355234DEC7F003F0257 /* LaunchScreen.storyboard */; };
@@ -21,6 +26,12 @@
 		DD591E74234DF2C20039814A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		DD591E76234DF7570039814A /* ProfilesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesController.swift; sourceTree = "<group>"; };
 		DD591E78234DF77B0039814A /* ProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesView.swift; sourceTree = "<group>"; };
+		DD591E80234DFB8D0039814A /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		DD591E81234DFB8D0039814A /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		DD591E82234DFB8D0039814A /* IGListKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IGListKit.framework; path = Carthage/Build/iOS/IGListKit.framework; sourceTree = "<group>"; };
+		DD591E87234DFD3C0039814A /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
+		DD591E88234DFD3C0039814A /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
+		DD591E89234DFD3C0039814A /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		DD67A349234DEC7E003F0257 /* OnboardingProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnboardingProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD67A34C234DEC7E003F0257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD67A353234DEC7F003F0257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -33,6 +44,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD591E8D234DFDC50039814A /* IGListKit.framework in Frameworks */,
+				DD591E8E234DFDC50039814A /* RxBlocking.framework in Frameworks */,
+				DD591E8F234DFDC50039814A /* RxCocoa.framework in Frameworks */,
+				DD591E90234DFDC50039814A /* RxRelay.framework in Frameworks */,
+				DD591E91234DFDC50039814A /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +95,19 @@
 			children = (
 			);
 			path = Middlewares;
+            sourceTree = "<group>";
+        };
+		DD591E7F234DFB8C0039814A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD591E89234DFD3C0039814A /* RxBlocking.framework */,
+				DD591E88234DFD3C0039814A /* RxRelay.framework */,
+				DD591E87234DFD3C0039814A /* RxTest.framework */,
+				DD591E82234DFB8D0039814A /* IGListKit.framework */,
+				DD591E81234DFB8D0039814A /* RxCocoa.framework */,
+				DD591E80234DFB8D0039814A /* RxSwift.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		DD67A340234DEC7E003F0257 = {
@@ -86,6 +115,7 @@
 			children = (
 				DD67A34B234DEC7E003F0257 /* OnboardingProject */,
 				DD67A34A234DEC7E003F0257 /* Products */,
+				DD591E7F234DFB8C0039814A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +182,7 @@
 				DD67A345234DEC7E003F0257 /* Sources */,
 				DD67A346234DEC7E003F0257 /* Frameworks */,
 				DD67A347234DEC7E003F0257 /* Resources */,
+				DD591E86234DFB980039814A /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -206,6 +237,38 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DD591E86234DFB980039814A /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/IGListKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
+			);
+			name = Carthage;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/IGListKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxRelay.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DD67A345234DEC7E003F0257 /* Sources */ = {
@@ -356,6 +419,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6QJD9S5LP3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/OnboardingProject/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -374,6 +441,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6QJD9S5LP3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/OnboardingProject/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
