@@ -15,13 +15,26 @@ extension ProfilesList {
     let addCellProps = AddingCell.Props()
     let props = ProfilesView.Props(
       addingCellProps: DiffableBox(value: addCellProps, identifier: addCellProps.diffIdentifier as NSObjectProtocol, equal: ==),
-      profileCellProps: state.profiles.map(makeProfileCellProps)
+      profileCellProps: makeProfileCellProps(from: state.profiles, rooms: state.availableRooms, invalidInds: state.invalidProfiles)
     )
     return DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
   }
   
-  static private func makeProfileCellProps(from profile: ProfileInfo) -> DiffableBox<ProfileCell.Props> {
-    let props = ProfileCell.Props(name: profile.name, surname: profile.surname, room: MeetingRooms(rawValue: profile.room) ?? .unselected)
-    return DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
+  static private func makeProfileCellProps(from profiles: [ProfileInfo], rooms: [String], invalidInds: [Int]) -> [DiffableBox<ProfileCell.Props>] {
+    
+    var diffableProps = [DiffableBox<ProfileCell.Props>]()
+    for index in 0..<profiles.count {
+      
+      let props = ProfileCell.Props(
+        name: profiles[index].name,
+        surname: profiles[index].surname,
+        room: profiles[index].room,
+        availableRooms: rooms,
+        isValid: invalidInds.contains(index))
+      diffableProps.append(DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==))
+    }
+    
+    return diffableProps
   }
+  
 }

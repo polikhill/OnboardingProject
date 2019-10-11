@@ -10,39 +10,42 @@ import Foundation
 import RxSwift
 
 extension ProfilesList {
+  
+  final class ProfilesViewModel {
     
-    final class ProfilesViewModel {
-        
-        struct Inputs {
-            let viewWillAppear: Observable<Void>
-            let addNewCell: Observable<Void>
-        }
-        
-        struct Outputs {
-            let props: Observable<DiffableBox<ProfilesView.Props>>
-            let stateChanged: Observable<Void>
-        }
-        
-        func makeOutputs(from inputs: Inputs) -> Outputs {
-            let initialState = State(
-                profiles: []
-            )
-            
-            let store = Store(initialState: initialState, reducer: ProfilesList.reduce, middlewares: [])
-            
-            let props = store.state
-                .map(ProfilesList.makeProfileViewProps)
-            
-            let actionCreator = ActionCreator(inputs: inputs)
-            
-            let stateChanges = actionCreator.actions
-                .do(onNext: store.dispatch)
-                .voidValues()
-
-            return Outputs(
-                props: props,
-                stateChanged: stateChanges
-            )
-        }
+    struct Inputs {
+      let viewWillAppear: Observable<Void>
+      let addNewCell: Observable<Void>
     }
+    
+    struct Outputs {
+      let props: Observable<DiffableBox<ProfilesView.Props>>
+      let stateChanged: Observable<Void>
+    }
+    
+    func makeOutputs(from inputs: Inputs) -> Outputs {
+      let initialState = State(
+        profiles: [],
+        availableRooms: MeetingRooms.rooms,
+        invalidProfiles: []
+      )
+      
+      let addCellMiddleware = ProfilesList.makeAddNewCellMiddleware()
+      let store = Store(initialState: initialState, reducer: ProfilesList.reduce, middlewares: [addCellMiddleware])
+      
+      let props = store.state
+        .map(ProfilesList.makeProfileViewProps)
+      
+      let actionCreator = ActionCreator(inputs: inputs)
+      
+      let stateChanges = actionCreator.actions
+        .do(onNext: store.dispatch)
+        .voidValues()
+      
+      return Outputs(
+        props: props,
+        stateChanged: stateChanges
+      )
+    }
+  }
 }

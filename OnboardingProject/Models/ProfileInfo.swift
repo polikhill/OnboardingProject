@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProfileInfo {
+struct ProfileInfo: Equatable {
     let name: String
     let surname: String
     let room: String

@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum MeetingRooms: String, CaseIterable {
-  case venus, mars, jupiter, earth, titan, mercury, unselected
+struct MeetingRooms {
+  static let rooms = ["venus", "mars", "jupiter", "earth", "titan", "mercury"]
 }

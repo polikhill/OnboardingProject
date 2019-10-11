@@ -35,6 +35,8 @@
 		DD67A357234DEC7F003F0257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD67A355234DEC7F003F0257 /* LaunchScreen.storyboard */; };
 		DDBB808B234F61650020F888 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB8089234F61650020F888 /* ProfileCell.swift */; };
 		DDBB808C234F61650020F888 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDBB808A234F61650020F888 /* ProfileCell.xib */; };
+		DDBB808E2350AD140020F888 /* ProfilesMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */; };
+		DDBB80902350BA400020F888 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB808F2350BA400020F888 /* HelperFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		DD67A358234DEC7F003F0257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDBB8089234F61650020F888 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		DDBB808A234F61650020F888 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
+		DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesMiddleware.swift; sourceTree = "<group>"; };
+		DDBB808F2350BA400020F888 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				DD305646234F0D5700505D65 /* ReduxStore.swift */,
+				DDBB808F2350BA400020F888 /* HelperFunctions.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 		DD591E7E234DFAB70039814A /* Middlewares */ = {
 			isa = PBXGroup;
 			children = (
+				DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */,
 			);
 			path = Middlewares;
 			sourceTree = "<group>";
@@ -387,9 +393,11 @@
 				DD305647234F0D5700505D65 /* ReduxStore.swift in Sources */,
 				DD67A34D234DEC7E003F0257 /* AppDelegate.swift in Sources */,
 				DD383DF1234F4C550076F71A /* RxExtensions.swift in Sources */,
+				DDBB80902350BA400020F888 /* HelperFunctions.swift in Sources */,
 				DD383DE7234F3BBA0076F71A /* ProfilesNamespace.swift in Sources */,
 				DDBB808B234F61650020F888 /* ProfileCell.swift in Sources */,
 				DD30563D234F09D900505D65 /* IGListKitExtensions.swift in Sources */,
+				DDBB808E2350AD140020F888 /* ProfilesMiddleware.swift in Sources */,
 				DD591E77234DF7570039814A /* ProfilesController.swift in Sources */,
 				DD383DE5234F3B770076F71A /* ProfilesStore.swift in Sources */,
 			);

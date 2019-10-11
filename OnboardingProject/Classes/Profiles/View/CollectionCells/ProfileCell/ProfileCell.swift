@@ -8,17 +8,22 @@
 
 import UIKit
 import IGListKit
+import RxSwift
+import RxCocoa
 
 final class ProfileCell: UICollectionViewCell {
-
+  
   @IBOutlet fileprivate var nameTextField: UITextField!
   @IBOutlet fileprivate var surnameTextField: UITextField!
   @IBOutlet fileprivate var roomTextField: UITextField!
   
   private let roomsPickerView = UIPickerView()
-  private var rooms = MeetingRooms.allCases
+  private var rooms = [String]()
+  private var disposeBag = DisposeBag()
   
   static let height: CGFloat = 140
+  
+  var cellIndex: Int?
   
   struct Props: Equatable, Diffable {
     var diffIdentifier: String {
@@ -27,17 +32,31 @@ final class ProfileCell: UICollectionViewCell {
     
     let name: String
     let surname: String
-    let room: MeetingRooms
+    let room: String
+    let availableRooms: [String]
+    let isValid: Bool
   }
   
   override func awakeFromNib() {
-        super.awakeFromNib()
-        setupUI()
-    }
+    super.awakeFromNib()
+    setupUI()
+    setupBindings()
+  }
   
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    disposeBag = DisposeBag()
+  }
+  
+  private func setupBindings() {
+    roomsPickerView.rx.itemSelected
+      .subscribe(onNext: { item in
+        self.roomTextField.text = self.rooms[item.row]
+      })
+      .disposed(by: disposeBag)
+    
+  }
   private func setupUI() {
-    roomsPickerView.dataSource = self
-    roomsPickerView.delegate = self
     roomTextField.inputView = roomsPickerView
     setupToolBar()
   }
@@ -52,26 +71,16 @@ final class ProfileCell: UICollectionViewCell {
   private func render(props: Props) {
     nameTextField.text = props.name
     surnameTextField.text = props.surname
-    roomTextField.text = props.room.rawValue
-  }
-
-}
-
-extension ProfileCell: UIPickerViewDataSource, UIPickerViewDelegate {
-  func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
-  }
-  
-  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return rooms.count
-  }
-  
-  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return rooms[row].rawValue
-  }
-  
-  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    roomTextField.text = rooms[row].rawValue
+    roomTextField.text = props.room
+    
+    rooms = props.availableRooms
+    Observable.just(props.availableRooms)
+      .bind(to: roomsPickerView.rx.itemTitles) { _, item in
+        return item
+      }
+      .disposed(by: disposeBag)
+    
+    backgroundColor = props.isValid ? .green : .red
   }
 }
 
@@ -79,5 +88,22 @@ extension ProfileCell: ListBindable {
   func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? DiffableBox<Props> else { return }
     render(props: viewModel.value)
+  }
+}
+
+extension Reactive where Base: ProfileCell {
+  var name: Observable<(Int, String)> {
+    guard let index = base.cellIndex, let text = base.nameTextField.text else { return Observable.empty() }
+    return base.nameTextField.rx.controlEvent(.editingDidEnd).withLatestFrom(Observable.just((index, text)))
+  }
+  
+  var surname: Observable<(Int, String)> {
+    guard let index = base.cellIndex, let text = base.surnameTextField.text else { return Observable.empty() }
+    return base.surnameTextField.rx.controlEvent(.editingDidEnd).withLatestFrom(Observable.just((index, text)))
+  }
+  
+  var room: Observable<(Int, String)> {
+    guard let index = base.cellIndex, let text = base.roomTextField.text else { return Observable.empty() }
+    return base.roomTextField.rx.controlEvent(.editingDidEnd).withLatestFrom(Observable.just((index, text)))
   }
 }

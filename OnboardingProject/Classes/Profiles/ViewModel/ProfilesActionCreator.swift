@@ -23,7 +23,7 @@ extension ProfilesList {
       
       let addNewCellAction = inputs.addNewCell
         .map ({ _ -> ProfilesAction in
-          return ProfilesList.AddNewProfile(profile: ProfileInfo(name: "", surname: "", room: ""))
+          return ProfilesList.AddNewCellTap()
         })
       
       self.actions = Observable.merge(
