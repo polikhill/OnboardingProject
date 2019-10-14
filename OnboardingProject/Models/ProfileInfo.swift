@@ -9,8 +9,8 @@
 import Foundation
 
 struct ProfileInfo: Equatable {
-    let name: String
-    let surname: String
-    let room: String
+    var name: String
+    var surname: String
+    var room: String
 }
 

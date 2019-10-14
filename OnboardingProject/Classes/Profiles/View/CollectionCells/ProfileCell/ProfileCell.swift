@@ -21,20 +21,22 @@ final class ProfileCell: UICollectionViewCell {
   private var rooms = [String]()
   private var disposeBag = DisposeBag()
   
+  fileprivate var cellIndex: Int?
+  
   static let height: CGFloat = 140
   
-  var cellIndex: Int?
+  enum ValidationState {
+    case valid, invalid, unchecked
+  }
   
   struct Props: Equatable, Diffable {
-    var diffIdentifier: String {
-      return (name + "\(Date().timeIntervalSince1970)")
-    }
-    
+    var diffIdentifier: String
     let name: String
     let surname: String
     let room: String
     let availableRooms: [String]
-    let isValid: Bool
+    let state: ValidationState
+    let index: Int
   }
   
   override func awakeFromNib() {
@@ -54,8 +56,8 @@ final class ProfileCell: UICollectionViewCell {
         self.roomTextField.text = self.rooms[item.row]
       })
       .disposed(by: disposeBag)
-    
   }
+  
   private func setupUI() {
     roomTextField.inputView = roomsPickerView
     setupToolBar()
@@ -63,8 +65,16 @@ final class ProfileCell: UICollectionViewCell {
   
   private func setupToolBar() {
     let toolBar = UIToolbar()
+    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
-    toolBar.setItems([doneButton], animated: true)
+    doneButton.rx.tap
+      .subscribe(onNext: { _ in
+        self.endEditing(true)
+      })
+    .disposed(by: disposeBag)
+    
+    toolBar.setItems([flexibleSpace, doneButton], animated: true)
+    toolBar.sizeToFit()
     roomTextField.inputAccessoryView = toolBar
   }
   
@@ -72,15 +82,29 @@ final class ProfileCell: UICollectionViewCell {
     nameTextField.text = props.name
     surnameTextField.text = props.surname
     roomTextField.text = props.room
-    
-    rooms = props.availableRooms
-    Observable.just(props.availableRooms)
+    cellIndex = props.index
+    setupRooms(props.availableRooms)
+    setupBackground(for: props.state)
+  }
+  
+  private func setupBackground(for state: ValidationState) {
+    var color: UIColor {
+      switch state {
+      case .invalid: return .red
+      case .valid: return .green
+      case .unchecked: return .white
+      }
+    }
+    backgroundColor = color
+  }
+  
+  private func setupRooms(_ rooms: [String]) {
+    self.rooms = rooms
+    Observable.just(rooms)
       .bind(to: roomsPickerView.rx.itemTitles) { _, item in
         return item
       }
       .disposed(by: disposeBag)
-    
-    backgroundColor = props.isValid ? .green : .red
   }
 }
 
@@ -92,18 +116,18 @@ extension ProfileCell: ListBindable {
 }
 
 extension Reactive where Base: ProfileCell {
-  var name: Observable<(Int, String)> {
-    guard let index = base.cellIndex, let text = base.nameTextField.text else { return Observable.empty() }
-    return base.nameTextField.rx.controlEvent(.editingDidEnd).withLatestFrom(Observable.just((index, text)))
+  var name: Observable<(Int?, String?)> {
+    return base.nameTextField.rx.controlEvent(.editingDidEnd)
+      .map({(self.base.cellIndex, self.base.nameTextField.text)})
   }
-  
-  var surname: Observable<(Int, String)> {
-    guard let index = base.cellIndex, let text = base.surnameTextField.text else { return Observable.empty() }
-    return base.surnameTextField.rx.controlEvent(.editingDidEnd).withLatestFrom(Observable.just((index, text)))
+
+  var surname: Observable<(Int?, String?)> {
+    return base.surnameTextField.rx.controlEvent(.editingDidEnd)
+    .map({(self.base.cellIndex, self.base.surnameTextField.text)})
   }
-  
-  var room: Observable<(Int, String)> {
-    guard let index = base.cellIndex, let text = base.roomTextField.text else { return Observable.empty() }
-    return base.roomTextField.rx.controlEvent(.editingDidEnd).withLatestFrom(Observable.just((index, text)))
+
+  var room: Observable<(Int?, String?)> {
+    return base.roomTextField.rx.controlEvent(.editingDidEnd)
+    .map({(self.base.cellIndex, self.base.roomTextField.text)})
   }
 }

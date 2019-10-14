@@ -13,6 +13,10 @@ import RxCocoa
 
 final class ProfilesView: UIView {
   
+  let nameSubject = PublishSubject<(Int?, String?)>()
+  let surnameSubject = PublishSubject<(Int?, String?)>()
+  let roomSubject = PublishSubject<(Int?, String?)>()
+  
   private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
   fileprivate let addNewCellSubject = PublishSubject<Void>()
   private let disposeBag = DisposeBag()
@@ -82,8 +86,21 @@ extension ProfilesView: ListAdapterDataSource {
   
   func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
     let profilesController = ProfilesController()
+    
     profilesController.rx.addCell
       .bind(to: addNewCellSubject)
+      .disposed(by: disposeBag)
+    
+    profilesController.nameSubject
+      .bind(to: nameSubject)
+      .disposed(by: disposeBag)
+    
+    profilesController.surnameSubject
+      .bind(to: surnameSubject)
+      .disposed(by: disposeBag)
+    
+    profilesController.roomSubject
+      .bind(to: roomSubject)
       .disposed(by: disposeBag)
     
     return profilesController

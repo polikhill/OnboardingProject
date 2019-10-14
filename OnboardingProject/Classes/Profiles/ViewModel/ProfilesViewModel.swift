@@ -16,8 +16,11 @@ extension ProfilesList {
     struct Inputs {
       let viewWillAppear: Observable<Void>
       let addNewCell: Observable<Void>
+      let nameSubject: PublishSubject<(Int?, String?)>
+      let surnameSubject: PublishSubject<(Int?, String?)>
+      let roomSubject: PublishSubject<(Int?, String?)>
     }
-    
+
     struct Outputs {
       let props: Observable<DiffableBox<ProfilesView.Props>>
       let stateChanged: Observable<Void>
@@ -27,11 +30,13 @@ extension ProfilesList {
       let initialState = State(
         profiles: [],
         availableRooms: MeetingRooms.rooms,
-        invalidProfiles: []
+        validatedCells: [],
+        difID: []
       )
       
       let addCellMiddleware = ProfilesList.makeAddNewCellMiddleware()
-      let store = Store(initialState: initialState, reducer: ProfilesList.reduce, middlewares: [addCellMiddleware])
+      let validationMiddleware = ProfilesList.makeValidationMiddleware()
+      let store = Store(initialState: initialState, reducer: ProfilesList.reduce, middlewares: [addCellMiddleware, validationMiddleware])
       
       let props = store.state
         .map(ProfilesList.makeProfileViewProps)

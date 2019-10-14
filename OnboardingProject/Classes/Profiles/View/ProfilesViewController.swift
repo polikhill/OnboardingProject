@@ -12,10 +12,10 @@ import RxCocoa
 
 final class ProfilesViewController: UIViewController {
 
-    private let contentView = ProfilesView()
-    private let disposeBag = DisposeBag()
-    private let viewModel: ProfilesList.ProfilesViewModel
-    
+    let contentView = ProfilesView()
+    let disposeBag = DisposeBag()
+    let viewModel: ProfilesList.ProfilesViewModel
+  
     init() {
         viewModel = ProfilesList.ProfilesViewModel()
         super.init(nibName: nil, bundle: nil)
@@ -35,9 +35,13 @@ final class ProfilesViewController: UIViewController {
     }
     
     private func setupBindings() {
+      
         let inputs = ProfilesList.ProfilesViewModel.Inputs(
             viewWillAppear: rx.methodInvoked(#selector(viewWillAppear(_:))).voidValues(),
-            addNewCell: contentView.rx.addNewCell
+            addNewCell: contentView.rx.addNewCell,
+            nameSubject: contentView.nameSubject,
+            surnameSubject: contentView.surnameSubject,
+            roomSubject: contentView.roomSubject
         )
       
       let outputs = viewModel.makeOutputs(from: inputs)

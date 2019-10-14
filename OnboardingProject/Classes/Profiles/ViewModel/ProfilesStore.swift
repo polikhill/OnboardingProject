@@ -15,7 +15,8 @@ extension ProfilesList {
   struct State {
     var profiles: [ProfileInfo]
     var availableRooms: [String]
-    var invalidProfiles: [Int]
+    var validatedCells: [ProfileCell.ValidationState]
+    var difID: [String]
   }
   
   struct InialSetup: ProfilesAction { }
@@ -26,10 +27,23 @@ extension ProfilesList {
     let profile: ProfileInfo
   }
   
-  struct ValidationaPassed: ProfilesAction { }
+  struct UpdateName: ProfilesAction {
+    let name: String?
+    let index: Int?
+  }
   
-  struct ValidationFailed: ProfilesAction {
-    let indexes: [Int]
+  struct UpdateSurname: ProfilesAction {
+    let surname: String?
+    let index: Int?
+  }
+  
+  struct UpdateRoom: ProfilesAction {
+    let room: String?
+    let index: Int?
+  }
+  
+  struct Validate: ProfilesAction {
+    let validatedCells: [ProfileCell.ValidationState]
   }
   
   static func reduce(state: State, action: ProfilesAction) -> State {
@@ -39,8 +53,26 @@ extension ProfilesList {
     case is AddNewCellTap:
       guard let lastProfile = newState.profiles.first, let index = newState.availableRooms.firstIndex(of: lastProfile.room) else { break }
       newState.availableRooms.remove(at: index)
+      
     case let action as AddNewProfile:
-      newState.profiles.insert(action.profile, at: 0)
+      newState.profiles.append(action.profile)
+      newState.difID.append(UUID().uuidString)
+      
+    case let action as Validate:
+      newState.validatedCells = action.validatedCells
+      
+    case let action as UpdateName:
+      guard let index = action.index else { break }
+      newState.profiles[index].name = action.name ?? ""
+
+    case let action as UpdateSurname:
+      guard let index = action.index else { break }
+      newState.profiles[index].surname = action.surname ?? ""
+
+    case let action as UpdateRoom:
+      guard let index = action.index else { break }
+      newState.profiles[index].room = action.room ?? ""
+      
     default:
       break
     }

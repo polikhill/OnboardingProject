@@ -14,9 +14,9 @@ import RxCocoa
 final class ProfilesController: ListBindingSectionController<DiffableBox<ProfilesView.Props>> {
   
   fileprivate let addNewCellSubject = PublishSubject<Void>()
-  fileprivate let nameSubject = PublishSubject<(Int, String)>()
-  fileprivate let surnameSubject = PublishSubject<(Int, String)>()
-  fileprivate let roomSubject = PublishSubject<(Int, String)>()
+  let nameSubject = PublishSubject<(Int?, String?)>()
+  let surnameSubject = PublishSubject<(Int?, String?)>()
+  let roomSubject = PublishSubject<(Int?, String?)>()
   
   fileprivate let disposeBag = DisposeBag()
   
@@ -55,6 +55,7 @@ extension ProfilesController: ListBindingSectionControllerDataSource {
         .disposed(by: disposeBag)
       
       return cell
+      
     case is DiffableBox<AddingCell.Props>:
       guard let cell = collectionContext?.cell(type: AddingCell.self, index: index, for: self) else { fatalError() }
       

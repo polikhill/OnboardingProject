@@ -13,7 +13,7 @@ import RxCocoa
 extension ProfilesList {
   static func makeAddNewCellMiddleware() -> Store.Middleware {
     let disposeBag = DisposeBag()
-    
+    var i = 0
     return Store.makeMiddleware { dispatch, store, next, action in
       next(action)
       let store = store()
@@ -24,11 +24,11 @@ extension ProfilesList {
       
       Observable.just(())
         .map({ _ -> ProfilesAction in
-          
-          return ProfilesList.AddNewProfile(profile: ProfileInfo(name: "", surname: "", room: ""))
+          return ProfilesList.AddNewProfile(profile: ProfileInfo(name: "\(i)", surname: "", room: ""))
         })
         .subscribe(onNext: dispatch)
         .disposed(by: disposeBag)
+      i += 1
     }
   }
   
@@ -39,23 +39,14 @@ extension ProfilesList {
       next(action)
       let profiles = store().profiles
       
-      guard action is AddNewCellTap, !profiles.isEmpty else {
+      guard action is AddNewCellTap, !profiles.isEmpty else { 
         return
       }
       
       Observable.just(())
         .map({ _ -> ProfilesAction in
-          var invalidInds: [Int] {
-            return profiles.compactMap({ profile -> Int? in
-              if HelperFunctions.validate(profile: profile) {
-                guard let index = profiles.firstIndex(of: profile) else { return nil }
-                return index
-              }
-              return nil
-            })
-          }
-          
-          return ProfilesList.ValidationFailed(indexes: invalidInds)
+          let validatedCells = profiles.map(HelperFunctions.validate)
+          return ProfilesList.Validate(validatedCells: validatedCells)
         })
         .subscribe(onNext: dispatch)
         .disposed(by: disposeBag)
