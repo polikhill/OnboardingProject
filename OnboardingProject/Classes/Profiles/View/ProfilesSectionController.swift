@@ -54,6 +54,8 @@ extension ProfilesSectionController: ListBindingSectionControllerDataSource {
         .bind(to: roomSubject)
         .disposed(by: cell.disposeBag)
       
+      print("=== pr index \(index)")
+      
       return cell
       
     case is DiffableBox<AddingCell.Props>:
@@ -61,8 +63,9 @@ extension ProfilesSectionController: ListBindingSectionControllerDataSource {
       
       cell.rx.addTap
         .bind(to: addNewCellSubject)
-        .disposed(by: disposeBag)
+        .disposed(by: cell.disposeBag)
       
+      print("=== bt index \(index)")
       return cell
     default: fatalError() 
     }

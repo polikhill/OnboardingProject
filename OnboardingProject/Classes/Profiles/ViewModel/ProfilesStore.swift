@@ -16,9 +16,12 @@ extension ProfilesList {
     var profiles: [ProfileInfo]
     var availableRooms: [String]
     var validatedCells: [ProfileCell.ValidationState]
+    var sectionsID: String
   }
   
-  struct InialSetup: ProfilesAction { }
+  struct InialSetup: ProfilesAction {
+    let id: String
+  }
   
   struct AddNewCellTap: ProfilesAction { }
   
@@ -50,6 +53,9 @@ extension ProfilesList {
     var newState = state
     
     switch action {
+      
+    case let action as InialSetup:
+      newState.sectionsID = action.id
       
     case let action as AddNewProfile:
       newState.profiles.append(action.profile)

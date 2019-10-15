@@ -13,9 +13,7 @@ struct Section: Equatable, Diffable {
   let addingCellProps: DiffableBox<AddingCell.Props>
   let profileCellProps: [DiffableBox<ProfileCell.Props>]
   
-  var diffIdentifier: String {
-    return UUID().uuidString
-  }
+  let diffIdentifier: String
   
   static func == (lhs: Section, rhs: Section) -> Bool {
     return lhs.diffIdentifier == rhs.diffIdentifier

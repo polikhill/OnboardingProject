@@ -18,7 +18,7 @@ extension ProfilesList {
       
       let initalSetupActions = inputs.viewWillAppear
         .map({ _ -> ProfilesAction in
-          return ProfilesList.InialSetup()
+          return ProfilesList.InialSetup(id: UUID().uuidString)
         })
       
       let addNewCellAction = inputs.addNewCell

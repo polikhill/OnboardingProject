@@ -30,7 +30,8 @@ extension ProfilesList {
       let initialState = State(
         profiles: [],
         availableRooms: MeetingRooms.rooms,
-        validatedCells: []
+        validatedCells: [],
+        sectionsID: ""
       )
       
       let addCellMiddleware = ProfilesList.makeAddNewCellMiddleware()

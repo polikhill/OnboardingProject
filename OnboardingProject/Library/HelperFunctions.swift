@@ -13,7 +13,7 @@ final class HelperFunctions {
     if profile.name.rawValue.isEmpty, profile.room.rawValue.isEmpty, profile.surname.rawValue.isEmpty {
       return .unchecked
     }
-    if profile.name.rawValue.count > 3, profile.surname.rawValue.count > 3 {
+    if profile.name.rawValue.count > 3 && profile.surname.rawValue.count > 3 && !profile.room.rawValue.isEmpty {
       return .valid
     }
     return .invalid

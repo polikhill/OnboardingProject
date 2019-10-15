@@ -15,7 +15,7 @@ extension ProfilesList {
       section: DiffableBox(
         value: Section(
           addingCellProps: DiffableBox(value: AddingCell.Props()),
-          profileCellProps: makeProfileCellProps(from: state)
+          profileCellProps: makeProfileCellProps(from: state), diffIdentifier: state.sectionsID
         )
       )
     )
