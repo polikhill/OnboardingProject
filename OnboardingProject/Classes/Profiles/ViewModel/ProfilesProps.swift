@@ -15,31 +15,27 @@ extension ProfilesList {
       section: DiffableBox(
         value: Section(
           addingCellProps: DiffableBox(value: AddingCell.Props()),
-          profileCellProps: makeProfileCellProps(from: state.profiles, rooms: state.availableRooms, validatedCells: state.validatedCells)
+          profileCellProps: makeProfileCellProps(from: state)
         )
       )
     )
   }
   
-  static private func makeProfileCellProps(
-    from profiles: [ProfileInfo],
-    rooms: [String],
-    validatedCells: [ProfileCell.ValidationState]
-    ) -> [DiffableBox<ProfileCell.Props>] {
+  static private func makeProfileCellProps(from state: State) -> [DiffableBox<ProfileCell.Props>] {
     
     var diffableProps = [DiffableBox<ProfileCell.Props>]()
-    for index in 0..<profiles.count {
-      var state: ProfileCell.ValidationState {
-        return profiles[index] == profiles.last ? .unchecked : validatedCells[index]
+    for index in 0..<state.profiles.count {
+      var cellState: ProfileCell.ValidationState {
+        return state.profiles[index] == state.profiles.last ? .unchecked : state.validatedCells[index]
       }
       
       let props = ProfileCell.Props(
-        diffIdentifier: profiles[index].diffID,
-        name: profiles[index].name.rawValue,
-        surname: profiles[index].surname.rawValue,
-        room: profiles[index].room.rawValue,
-        availableRooms: rooms,
-        backgroundColor: makeColor(from: state),
+        diffIdentifier: state.profiles[index].diffID,
+        name: state.profiles[index].name.rawValue,
+        surname: state.profiles[index].surname.rawValue,
+        room: state.profiles[index].room.rawValue,
+        availableRooms: state.availableRooms,
+        backgroundColor: makeColor(from: cellState),
         index: index
       )
       diffableProps.append(DiffableBox(value: props))

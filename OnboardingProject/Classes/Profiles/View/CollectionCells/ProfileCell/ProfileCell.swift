@@ -64,7 +64,7 @@ final class ProfileCell: UICollectionViewCell {
         self.roomTextField.text = self.rooms[self.roomsPickerView.selectedRow(inComponent: 0)]
         self.endEditing(true)
       })
-    .disposed(by: disposeBag)
+      .disposed(by: disposeBag)
     
     toolBar.setItems([flexibleSpace, doneButton], animated: true)
     toolBar.sizeToFit()
@@ -84,12 +84,10 @@ final class ProfileCell: UICollectionViewCell {
     if props.index != renderedProps?.index {
       cellIndex = props.index
     }
-    if props.availableRooms != renderedProps?.availableRooms {
-    setupRooms(props.availableRooms)
-    }
     if props.backgroundColor != renderedProps?.backgroundColor {
       backgroundColor = props.backgroundColor
     }
+    setupRooms(props.availableRooms)
     renderedProps = props
   }
   
@@ -115,12 +113,12 @@ extension Reactive where Base: ProfileCell {
     return base.nameTextField.rx.controlEvent(.editingDidEnd)
       .map({(self.base.cellIndex, ProfileInfo.Name(rawValue: self.base.nameTextField.text ?? ""))})
   }
-
+  
   var surname: Observable<(Int?, ProfileInfo.Surname)> {
     return base.surnameTextField.rx.controlEvent(.editingDidEnd)
       .map({(self.base.cellIndex, ProfileInfo.Surname(rawValue: self.base.surnameTextField.text ?? ""))})
   }
-
+  
   var room: Observable<(Int?, ProfileInfo.Room)> {
     return base.roomTextField.rx.controlEvent(.editingDidEnd)
       .map({(self.base.cellIndex, ProfileInfo.Room(rawValue: self.base.roomTextField.text ?? ""))})

@@ -7,13 +7,10 @@
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
 
 extension ProfilesList {
   static func makeAddNewCellMiddleware() -> Store.Middleware {
-    let disposeBag = DisposeBag()
-    var i = 0
+    var index = 0
     return Store.makeMiddleware { dispatch, store, next, action in
       next(action)
       let store = store()
@@ -25,26 +22,21 @@ extension ProfilesList {
       let selectedRooms = store.profiles.map { $0.room.rawValue }
       let availableRooms = MeetingRooms.rooms.filter { !selectedRooms.contains($0) }
       
-      Observable.just(())
-        .map({ _ -> ProfilesAction in
-          return ProfilesList.AddNewProfile(
-            profile: ProfileInfo(
-              name: ProfileInfo.Name(rawValue: "\(i)"),
-              surname: ProfileInfo.Surname(rawValue: ""),
-              room: ProfileInfo.Room(rawValue: ""),
-              diffID: UUID().uuidString),
-            availableRooms: availableRooms
-          )
-        })
-        .subscribe(onNext: dispatch)
-        .disposed(by: disposeBag)
-      i += 1
+      let addProfileAction = ProfilesList.AddNewProfile(
+        profile: ProfileInfo(
+          name: ProfileInfo.Name(rawValue: "\(index)"),
+          surname: ProfileInfo.Surname(rawValue: ""),
+          room: ProfileInfo.Room(rawValue: ""),
+          diffID: UUID().uuidString),
+        availableRooms: availableRooms
+      )
+      dispatch(addProfileAction)
+      
+      index += 1
     }
   }
   
   static func makeValidationMiddleware() -> Store.Middleware {
-    let disposeBag = DisposeBag()
-    
     return Store.makeMiddleware { dispatch, store, next, action in
       next(action)
       let profiles = store().profiles
@@ -53,13 +45,8 @@ extension ProfilesList {
         return
       }
       
-      Observable.just(())
-        .map({ _ -> ProfilesAction in
-          let validatedCells = profiles.map(HelperFunctions.validate)
-          return ProfilesList.Validate(validatedCells: validatedCells)
-        })
-        .subscribe(onNext: dispatch)
-        .disposed(by: disposeBag)
+      let validatedCells = profiles.map(HelperFunctions.validate)
+      dispatch(ProfilesList.Validate(validatedCells: validatedCells))
     }
   }
 }
