@@ -22,12 +22,19 @@ extension ProfilesList {
         return
       }
       
-      let selectedRooms = store.profiles.map { $0.room }
+      let selectedRooms = store.profiles.map { $0.room.rawValue }
       let availableRooms = MeetingRooms.rooms.filter { !selectedRooms.contains($0) }
       
       Observable.just(())
         .map({ _ -> ProfilesAction in
-          return ProfilesList.AddNewProfile(profile: ProfileInfo(name: "\(i)", surname: "", room: ""), availableRooms: availableRooms)
+          return ProfilesList.AddNewProfile(
+            profile: ProfileInfo(
+              name: ProfileInfo.Name(rawValue: "\(i)"),
+              surname: ProfileInfo.Surname(rawValue: ""),
+              room: ProfileInfo.Room(rawValue: ""),
+              diffID: UUID().uuidString),
+            availableRooms: availableRooms
+          )
         })
         .subscribe(onNext: dispatch)
         .disposed(by: disposeBag)

@@ -9,8 +9,14 @@
 import Foundation
 
 struct ProfileInfo: Equatable {
-    var name: String
-    var surname: String
-    var room: String
+  var name: Name
+  var surname: Surname
+  var room: Room
+  var diffID: String
+  
+  typealias Name = Tagged<ProfileInfo, String>
+  enum SurnameTag {}
+  typealias Surname = Tagged<SurnameTag, String>
+  enum RoomTag {}
+  typealias Room = Tagged<RoomTag, String>
 }
-

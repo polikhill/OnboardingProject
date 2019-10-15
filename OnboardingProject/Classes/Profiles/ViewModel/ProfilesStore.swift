@@ -16,7 +16,6 @@ extension ProfilesList {
     var profiles: [ProfileInfo]
     var availableRooms: [String]
     var validatedCells: [ProfileCell.ValidationState]
-    var difID: [String]
   }
   
   struct InialSetup: ProfilesAction { }
@@ -29,17 +28,17 @@ extension ProfilesList {
   }
   
   struct UpdateName: ProfilesAction {
-    let name: String?
+    let name: ProfileInfo.Name
     let index: Int?
   }
   
   struct UpdateSurname: ProfilesAction {
-    let surname: String?
+    let surname: ProfileInfo.Surname
     let index: Int?
   }
   
   struct UpdateRoom: ProfilesAction {
-    let room: String?
+    let room: ProfileInfo.Room
     let index: Int?
   }
   
@@ -54,7 +53,6 @@ extension ProfilesList {
       
     case let action as AddNewProfile:
       newState.profiles.append(action.profile)
-      newState.difID.append(UUID().uuidString)
       newState.availableRooms = action.availableRooms
       
     case let action as Validate:
@@ -62,15 +60,15 @@ extension ProfilesList {
       
     case let action as UpdateName:
       guard let index = action.index else { break }
-      newState.profiles[index].name = action.name ?? ""
+      newState.profiles[index].name = action.name
 
     case let action as UpdateSurname:
       guard let index = action.index else { break }
-      newState.profiles[index].surname = action.surname ?? ""
+      newState.profiles[index].surname = action.surname
 
     case let action as UpdateRoom:
       guard let index = action.index else { break }
-      newState.profiles[index].room = action.room ?? ""
+      newState.profiles[index].room = action.room
       
     default:
       break

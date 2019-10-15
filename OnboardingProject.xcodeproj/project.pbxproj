@@ -37,6 +37,7 @@
 		DDBB808C234F61650020F888 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDBB808A234F61650020F888 /* ProfileCell.xib */; };
 		DDBB808E2350AD140020F888 /* ProfilesMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */; };
 		DDBB80902350BA400020F888 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB808F2350BA400020F888 /* HelperFunctions.swift */; };
+		DDBB8092235606B10020F888 /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB8091235606B10020F888 /* Tagged.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		DDBB808A234F61650020F888 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
 		DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesMiddleware.swift; sourceTree = "<group>"; };
 		DDBB808F2350BA400020F888 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		DDBB8091235606B10020F888 /* Tagged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				DD305646234F0D5700505D65 /* ReduxStore.swift */,
 				DDBB808F2350BA400020F888 /* HelperFunctions.swift */,
+				DDBB8091235606B10020F888 /* Tagged.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				DD383DED234F45100076F71A /* ProfilesViewModel.swift in Sources */,
 				DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */,
 				DD383DEF234F47770076F71A /* ProfilesActionCreator.swift in Sources */,
+				DDBB8092235606B10020F888 /* Tagged.swift in Sources */,
 				DD383DEB234F3F820076F71A /* ProfilesProps.swift in Sources */,
 				DD305642234F0C4300505D65 /* MeetingRooms.swift in Sources */,
 				DD305639234F026C00505D65 /* AddingCell.swift in Sources */,

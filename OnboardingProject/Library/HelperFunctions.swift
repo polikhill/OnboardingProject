@@ -10,10 +10,10 @@ import Foundation
 
 final class HelperFunctions {
   static func validate(profile: ProfileInfo) -> ProfileCell.ValidationState {
-    if profile.name.isEmpty, profile.room.isEmpty, profile.surname.isEmpty {
+    if profile.name.rawValue.isEmpty, profile.room.rawValue.isEmpty, profile.surname.rawValue.isEmpty {
       return .unchecked
     }
-    if profile.name.count > 3, profile.surname.count > 3 {
+    if profile.name.rawValue.count > 3, profile.surname.rawValue.count > 3 {
       return .valid
     }
     return .invalid

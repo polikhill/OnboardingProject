@@ -19,7 +19,7 @@ final class AddingCell: UICollectionViewCell {
     
     struct Props: Equatable, Diffable {
         var diffIdentifier: String {
-            return "\(Date().timeIntervalSince1970)"
+            return "AddCell"
         }
     }
     

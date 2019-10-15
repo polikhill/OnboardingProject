@@ -14,11 +14,11 @@ import RxCocoa
 final class ProfilesController: ListBindingSectionController<DiffableBox<ProfilesView.Props>> {
   
   fileprivate let addNewCellSubject = PublishSubject<Void>()
-  let nameSubject = PublishSubject<(Int?, String?)>()
-  let surnameSubject = PublishSubject<(Int?, String?)>()
-  let roomSubject = PublishSubject<(Int?, String?)>()
+  let nameSubject = PublishSubject<(Int?, ProfileInfo.Name)>()
+  let surnameSubject = PublishSubject<(Int?, ProfileInfo.Surname)>()
+  let roomSubject = PublishSubject<(Int?, ProfileInfo.Room)>()
   
-  fileprivate let disposeBag = DisposeBag()
+  let disposeBag = DisposeBag()
   
   override init() {
     super.init()
@@ -43,16 +43,16 @@ extension ProfilesController: ListBindingSectionControllerDataSource {
     switch viewModel {
     case is DiffableBox<ProfileCell.Props>:
       guard let cell = collectionContext?.cell(type: ProfileCell.self, index: index, for: self) else { fatalError() }
-      
+        
       cell.rx.name
         .bind(to: nameSubject)
-        .disposed(by: disposeBag)
+        .disposed(by: cell.disposeBag)
       cell.rx.surname
         .bind(to: surnameSubject)
-        .disposed(by: disposeBag)
+        .disposed(by: cell.disposeBag)
       cell.rx.room
         .bind(to: roomSubject)
-        .disposed(by: disposeBag)
+        .disposed(by: cell.disposeBag)
       
       return cell
       

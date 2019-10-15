@@ -13,9 +13,9 @@ import RxCocoa
 
 final class ProfilesView: UIView {
   
-  let nameSubject = PublishSubject<(Int?, String?)>()
-  let surnameSubject = PublishSubject<(Int?, String?)>()
-  let roomSubject = PublishSubject<(Int?, String?)>()
+  let nameSubject = PublishSubject<(Int?, ProfileInfo.Name)>()
+  let surnameSubject = PublishSubject<(Int?, ProfileInfo.Surname)>()
+  let roomSubject = PublishSubject<(Int?, ProfileInfo.Room)>()
   
   private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
   fileprivate let addNewCellSubject = PublishSubject<Void>()
@@ -89,19 +89,19 @@ extension ProfilesView: ListAdapterDataSource {
     
     profilesController.rx.addCell
       .bind(to: addNewCellSubject)
-      .disposed(by: disposeBag)
+      .disposed(by: profilesController.disposeBag)
     
     profilesController.nameSubject
       .bind(to: nameSubject)
-      .disposed(by: disposeBag)
+      .disposed(by: profilesController.disposeBag)
     
     profilesController.surnameSubject
       .bind(to: surnameSubject)
-      .disposed(by: disposeBag)
+      .disposed(by: profilesController.disposeBag)
     
     profilesController.roomSubject
       .bind(to: roomSubject)
-      .disposed(by: disposeBag)
+      .disposed(by: profilesController.disposeBag)
     
     return profilesController
   }

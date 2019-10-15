@@ -10,14 +10,14 @@ import UIKit
 import IGListKit
 
 extension ListCollectionContext {
-    func cell<T: UICollectionViewCell>(type: T.Type, index: Int, for controller: ListSectionController) -> T? {
-        guard let cell = dequeueReusableCell(
-            withNibName: "\(type)",
-            bundle: nil,
-            for: controller,
-            at: index) as? T else {
-                return nil
-        }
-        return cell
+  func cell<T: UICollectionViewCell>(type: T.Type, index: Int, for controller: ListSectionController) -> T {
+    guard let cell = dequeueReusableCell(
+      withNibName: "\(type)",
+      bundle: nil,
+      for: controller,
+      at: index) as? T else {
+        fatalError()
     }
+    return cell
+  }
 }

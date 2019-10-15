@@ -6,7 +6,7 @@
 //  Copyright © 2019 Polina Hill. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension ProfilesList {
   
@@ -20,8 +20,7 @@ extension ProfilesList {
       profileCellProps: makeProfileCellProps(
         from: state.profiles,
         rooms: state.availableRooms,
-        validatedCells: state.validatedCells,
-        difIDs: state.difID
+        validatedCells: state.validatedCells
       )
     )
     return DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
@@ -30,8 +29,7 @@ extension ProfilesList {
   static private func makeProfileCellProps(
     from profiles: [ProfileInfo],
     rooms: [String],
-    validatedCells: [ProfileCell.ValidationState],
-    difIDs: [String]
+    validatedCells: [ProfileCell.ValidationState]
     ) -> [DiffableBox<ProfileCell.Props>] {
     
     var diffableProps = [DiffableBox<ProfileCell.Props>]()
@@ -41,12 +39,12 @@ extension ProfilesList {
       }
       
       let props = ProfileCell.Props(
-        diffIdentifier: difIDs[index],
-        name: profiles[index].name,
-        surname: profiles[index].surname,
-        room: profiles[index].room,
+        diffIdentifier: profiles[index].diffID,
+        name: profiles[index].name.rawValue,
+        surname: profiles[index].surname.rawValue,
+        room: profiles[index].room.rawValue,
         availableRooms: rooms,
-        state: state,
+        backgroundColor: makeColor(from: state),
         index: index
       )
       diffableProps.append(DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==))
@@ -55,4 +53,11 @@ extension ProfilesList {
     return diffableProps
   }
   
+  static private func makeColor(from state: ProfileCell.ValidationState) -> UIColor {
+    switch state {
+    case .invalid: return .red
+    case .valid: return .green
+    case .unchecked: return .white
+    }
+  }
 }

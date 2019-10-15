@@ -16,9 +16,9 @@ extension ProfilesList {
     struct Inputs {
       let viewWillAppear: Observable<Void>
       let addNewCell: Observable<Void>
-      let nameSubject: PublishSubject<(Int?, String?)>
-      let surnameSubject: PublishSubject<(Int?, String?)>
-      let roomSubject: PublishSubject<(Int?, String?)>
+      let nameSubject: PublishSubject<(Int?, ProfileInfo.Name)>
+      let surnameSubject: PublishSubject<(Int?, ProfileInfo.Surname)>
+      let roomSubject: PublishSubject<(Int?, ProfileInfo.Room)>
     }
 
     struct Outputs {
@@ -30,8 +30,7 @@ extension ProfilesList {
       let initialState = State(
         profiles: [],
         availableRooms: MeetingRooms.rooms,
-        validatedCells: [],
-        difID: []
+        validatedCells: []
       )
       
       let addCellMiddleware = ProfilesList.makeAddNewCellMiddleware()

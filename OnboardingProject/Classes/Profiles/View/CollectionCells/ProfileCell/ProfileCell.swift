@@ -18,8 +18,9 @@ final class ProfileCell: UICollectionViewCell {
   @IBOutlet fileprivate var roomTextField: UITextField!
   
   private let roomsPickerView = UIPickerView()
+  private var renderedProps: Props?
   private var rooms = [String]()
-  private var disposeBag = DisposeBag()
+  var disposeBag = DisposeBag()
   
   fileprivate var cellIndex: Int?
   
@@ -35,7 +36,7 @@ final class ProfileCell: UICollectionViewCell {
     let surname: String
     let room: String
     let availableRooms: [String]
-    let state: ValidationState
+    let backgroundColor: UIColor
     let index: Int
   }
   
@@ -71,23 +72,25 @@ final class ProfileCell: UICollectionViewCell {
   }
   
   private func render(props: Props) {
-    nameTextField.text = props.name
-    surnameTextField.text = props.surname
-    roomTextField.text = props.room
-    cellIndex = props.index
-    setupRooms(props.availableRooms)
-    setupBackground(for: props.state)
-  }
-  
-  private func setupBackground(for state: ValidationState) {
-    var color: UIColor {
-      switch state {
-      case .invalid: return .red
-      case .valid: return .green
-      case .unchecked: return .white
-      }
+    if props.name != renderedProps?.name {
+      nameTextField.text = props.name
     }
-    backgroundColor = color
+    if props.surname != renderedProps?.surname {
+      surnameTextField.text = props.surname
+    }
+    if props.room != renderedProps?.room {
+      roomTextField.text = props.room
+    }
+    if props.index != renderedProps?.index {
+      cellIndex = props.index
+    }
+    if props.availableRooms != renderedProps?.availableRooms {
+    setupRooms(props.availableRooms)
+    }
+    if props.backgroundColor != renderedProps?.backgroundColor {
+      backgroundColor = props.backgroundColor
+    }
+    renderedProps = props
   }
   
   private func setupRooms(_ rooms: [String]) {
@@ -108,18 +111,18 @@ extension ProfileCell: ListBindable {
 }
 
 extension Reactive where Base: ProfileCell {
-  var name: Observable<(Int?, String?)> {
+  var name: Observable<(Int?, ProfileInfo.Name)> {
     return base.nameTextField.rx.controlEvent(.editingDidEnd)
-      .map({(self.base.cellIndex, self.base.nameTextField.text)})
+      .map({(self.base.cellIndex, ProfileInfo.Name(rawValue: self.base.nameTextField.text ?? ""))})
   }
 
-  var surname: Observable<(Int?, String?)> {
+  var surname: Observable<(Int?, ProfileInfo.Surname)> {
     return base.surnameTextField.rx.controlEvent(.editingDidEnd)
-    .map({(self.base.cellIndex, self.base.surnameTextField.text)})
+      .map({(self.base.cellIndex, ProfileInfo.Surname(rawValue: self.base.surnameTextField.text ?? ""))})
   }
 
-  var room: Observable<(Int?, String?)> {
+  var room: Observable<(Int?, ProfileInfo.Room)> {
     return base.roomTextField.rx.controlEvent(.editingDidEnd)
-    .map({(self.base.cellIndex, self.base.roomTextField.text)})
+      .map({(self.base.cellIndex, ProfileInfo.Room(rawValue: self.base.roomTextField.text ?? ""))})
   }
 }
