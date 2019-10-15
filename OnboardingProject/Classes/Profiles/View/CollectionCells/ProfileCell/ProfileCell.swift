@@ -42,20 +42,11 @@ final class ProfileCell: UICollectionViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     setupUI()
-//    setupBindings()
   }
   
   override func prepareForReuse() {
     super.prepareForReuse()
     disposeBag = DisposeBag()
-  }
-  
-  private func setupBindings() {
-    roomsPickerView.rx.itemSelected
-      .subscribe(onNext: { item in
-        self.roomTextField.text = self.rooms[item.row]
-      })
-      .disposed(by: disposeBag)
   }
   
   private func setupUI() {
