@@ -23,7 +23,7 @@
 		DD383DF1234F4C550076F71A /* RxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD383DF0234F4C550076F71A /* RxExtensions.swift */; };
 		DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E70234DF29F0039814A /* ProfilesViewController.swift */; };
 		DD591E75234DF2C20039814A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E74234DF2C20039814A /* AppCoordinator.swift */; };
-		DD591E77234DF7570039814A /* ProfilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E76234DF7570039814A /* ProfilesController.swift */; };
+		DD591E77234DF7570039814A /* ProfilesSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E76234DF7570039814A /* ProfilesSectionController.swift */; };
 		DD591E79234DF77B0039814A /* ProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD591E78234DF77B0039814A /* ProfilesView.swift */; };
 		DD591E8D234DFDC50039814A /* IGListKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD591E82234DFB8D0039814A /* IGListKit.framework */; };
 		DD591E8E234DFDC50039814A /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD591E89234DFD3C0039814A /* RxBlocking.framework */; };
@@ -33,6 +33,7 @@
 		DD67A34D234DEC7E003F0257 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD67A34C234DEC7E003F0257 /* AppDelegate.swift */; };
 		DD67A354234DEC7F003F0257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD67A353234DEC7F003F0257 /* Assets.xcassets */; };
 		DD67A357234DEC7F003F0257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD67A355234DEC7F003F0257 /* LaunchScreen.storyboard */; };
+		DD9014C92356130300556366 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9014C82356130300556366 /* Sections.swift */; };
 		DDBB808B234F61650020F888 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB8089234F61650020F888 /* ProfileCell.swift */; };
 		DDBB808C234F61650020F888 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDBB808A234F61650020F888 /* ProfileCell.xib */; };
 		DDBB808E2350AD140020F888 /* ProfilesMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */; };
@@ -57,7 +58,7 @@
 		DD383DF0234F4C550076F71A /* RxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtensions.swift; sourceTree = "<group>"; };
 		DD591E70234DF29F0039814A /* ProfilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesViewController.swift; sourceTree = "<group>"; };
 		DD591E74234DF2C20039814A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		DD591E76234DF7570039814A /* ProfilesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesController.swift; sourceTree = "<group>"; };
+		DD591E76234DF7570039814A /* ProfilesSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesSectionController.swift; sourceTree = "<group>"; };
 		DD591E78234DF77B0039814A /* ProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesView.swift; sourceTree = "<group>"; };
 		DD591E80234DFB8D0039814A /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		DD591E81234DFB8D0039814A /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 		DD67A353234DEC7F003F0257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD67A356234DEC7F003F0257 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD67A358234DEC7F003F0257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD9014C82356130300556366 /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
 		DDBB8089234F61650020F888 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		DDBB808A234F61650020F888 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
 		DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesMiddleware.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				DD30563F234F0BAF00505D65 /* ProfileInfo.swift */,
 				DD305641234F0C4300505D65 /* MeetingRooms.swift */,
 				DD305643234F0CF700505D65 /* DiffableBox.swift */,
+				DD9014C82356130300556366 /* Sections.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,7 +158,7 @@
 			children = (
 				DD305636234F01FF00505D65 /* CollectionCells */,
 				DD591E70234DF29F0039814A /* ProfilesViewController.swift */,
-				DD591E76234DF7570039814A /* ProfilesController.swift */,
+				DD591E76234DF7570039814A /* ProfilesSectionController.swift */,
 				DD591E78234DF77B0039814A /* ProfilesView.swift */,
 			);
 			path = View;
@@ -392,6 +395,7 @@
 				DD305642234F0C4300505D65 /* MeetingRooms.swift in Sources */,
 				DD305639234F026C00505D65 /* AddingCell.swift in Sources */,
 				DD383DE9234F3C120076F71A /* ProfilesAction.swift in Sources */,
+				DD9014C92356130300556366 /* Sections.swift in Sources */,
 				DD591E71234DF29F0039814A /* ProfilesViewController.swift in Sources */,
 				DD305644234F0CF700505D65 /* DiffableBox.swift in Sources */,
 				DD305647234F0D5700505D65 /* ReduxStore.swift in Sources */,
@@ -402,7 +406,7 @@
 				DDBB808B234F61650020F888 /* ProfileCell.swift in Sources */,
 				DD30563D234F09D900505D65 /* IGListKitExtensions.swift in Sources */,
 				DDBB808E2350AD140020F888 /* ProfilesMiddleware.swift in Sources */,
-				DD591E77234DF7570039814A /* ProfilesController.swift in Sources */,
+				DD591E77234DF7570039814A /* ProfilesSectionController.swift in Sources */,
 				DD383DE5234F3B770076F71A /* ProfilesStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,7 @@ import IGListKit
 import RxSwift
 import RxCocoa
 
-final class ProfilesController: ListBindingSectionController<DiffableBox<ProfilesView.Props>> {
+final class ProfilesSectionController: ListBindingSectionController<DiffableBox<Section>> {
   
   fileprivate let addNewCellSubject = PublishSubject<Void>()
   let nameSubject = PublishSubject<(Int?, ProfileInfo.Name)>()
@@ -26,12 +26,12 @@ final class ProfilesController: ListBindingSectionController<DiffableBox<Profile
   }
 }
 
-extension ProfilesController: ListBindingSectionControllerDataSource {
+extension ProfilesSectionController: ListBindingSectionControllerDataSource {
   func sectionController(
     _ sectionController: ListBindingSectionController<ListDiffable>,
     viewModelsFor object: Any
     ) -> [ListDiffable] {
-    guard let object = object as? DiffableBox<ProfilesView.Props> else { return [] }
+    guard let object = object as? DiffableBox<Section> else { return [] }
     return object.value.profileCellProps + [object.value.addingCellProps]
   }
   
@@ -86,7 +86,7 @@ extension ProfilesController: ListBindingSectionControllerDataSource {
   }
 }
 
-extension Reactive where Base: ProfilesController {
+extension Reactive where Base: ProfilesSectionController {
   var addCell: Observable<Void> {
     return base.addNewCellSubject.asObservable()
   }

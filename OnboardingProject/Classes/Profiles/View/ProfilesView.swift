@@ -20,23 +20,14 @@ final class ProfilesView: UIView {
   private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
   fileprivate let addNewCellSubject = PublishSubject<Void>()
   private let disposeBag = DisposeBag()
-  private var renderedProps: DiffableBox<Props>?
+  private var renderedProps: Props?
   
   private lazy var adapter: ListAdapter = {
     return ListAdapter(updater: ListAdapterUpdater(), viewController: nil)
   }()
   
-  struct Props: Diffable {
-    let addingCellProps: DiffableBox<AddingCell.Props>
-    let profileCellProps: [DiffableBox<ProfileCell.Props>]
-    
-    var diffIdentifier: String {
-      return "\(Date().timeIntervalSince1970)"
-    }
-    
-    static func == (lhs: ProfilesView.Props, rhs: ProfilesView.Props) -> Bool {
-      return lhs.diffIdentifier == rhs.diffIdentifier
-    }
+  struct Props {
+    let section: DiffableBox<Section>
   }
   
   override init(frame: CGRect) {
@@ -72,7 +63,7 @@ final class ProfilesView: UIView {
     adapter.dataSource = self
   }
   
-  func render(props: DiffableBox<Props>) {
+  func render(props: Props) {
     renderedProps = props
     adapter.performUpdates(animated: true)
   }
@@ -81,11 +72,11 @@ final class ProfilesView: UIView {
 extension ProfilesView: ListAdapterDataSource {
   func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
     guard let renderedProps = renderedProps else { return [] }
-    return [renderedProps]
+    return [renderedProps.section]
   }
   
   func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-    let profilesController = ProfilesController()
+    let profilesController = ProfilesSectionController()
     
     profilesController.rx.addCell
       .bind(to: addNewCellSubject)

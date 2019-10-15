@@ -22,7 +22,7 @@ extension ProfilesList {
     }
 
     struct Outputs {
-      let props: Observable<DiffableBox<ProfilesView.Props>>
+      let props: Observable<ProfilesView.Props>
       let stateChanged: Observable<Void>
     }
     

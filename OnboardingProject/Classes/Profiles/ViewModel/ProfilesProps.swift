@@ -10,20 +10,15 @@ import UIKit
 
 extension ProfilesList {
   
-  static func makeProfileViewProps(
-    from state: State
-    ) -> DiffableBox<ProfilesView.Props> {
-    
-    let addCellProps = AddingCell.Props()
-    let props = ProfilesView.Props(
-      addingCellProps: DiffableBox(value: addCellProps, identifier: addCellProps.diffIdentifier as NSObjectProtocol, equal: ==),
-      profileCellProps: makeProfileCellProps(
-        from: state.profiles,
-        rooms: state.availableRooms,
-        validatedCells: state.validatedCells
+  static func makeProfileViewProps(from state: State) -> ProfilesView.Props {
+    return ProfilesView.Props(
+      section: DiffableBox(
+        value: Section(
+          addingCellProps: DiffableBox(value: AddingCell.Props()),
+          profileCellProps: makeProfileCellProps(from: state.profiles, rooms: state.availableRooms, validatedCells: state.validatedCells)
+        )
       )
     )
-    return DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==)
   }
   
   static private func makeProfileCellProps(
@@ -47,7 +42,7 @@ extension ProfilesList {
         backgroundColor: makeColor(from: state),
         index: index
       )
-      diffableProps.append(DiffableBox(value: props, identifier: props.diffIdentifier as NSObjectProtocol, equal: ==))
+      diffableProps.append(DiffableBox(value: props))
     }
     
     return diffableProps
