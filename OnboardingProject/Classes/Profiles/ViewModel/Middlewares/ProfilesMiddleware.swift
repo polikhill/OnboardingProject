@@ -22,9 +22,12 @@ extension ProfilesList {
         return
       }
       
+      let selectedRooms = store.profiles.map { $0.room }
+      let availableRooms = MeetingRooms.rooms.filter { !selectedRooms.contains($0) }
+      
       Observable.just(())
         .map({ _ -> ProfilesAction in
-          return ProfilesList.AddNewProfile(profile: ProfileInfo(name: "\(i)", surname: "", room: ""))
+          return ProfilesList.AddNewProfile(profile: ProfileInfo(name: "\(i)", surname: "", room: ""), availableRooms: availableRooms)
         })
         .subscribe(onNext: dispatch)
         .disposed(by: disposeBag)

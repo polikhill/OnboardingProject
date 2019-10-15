@@ -25,6 +25,7 @@ extension ProfilesList {
   
   struct AddNewProfile: ProfilesAction {
     let profile: ProfileInfo
+    let availableRooms: [String]
   }
   
   struct UpdateName: ProfilesAction {
@@ -50,13 +51,11 @@ extension ProfilesList {
     var newState = state
     
     switch action {
-    case is AddNewCellTap:
-      guard let lastProfile = newState.profiles.first, let index = newState.availableRooms.firstIndex(of: lastProfile.room) else { break }
-      newState.availableRooms.remove(at: index)
       
     case let action as AddNewProfile:
       newState.profiles.append(action.profile)
       newState.difID.append(UUID().uuidString)
+      newState.availableRooms = action.availableRooms
       
     case let action as Validate:
       newState.validatedCells = action.validatedCells

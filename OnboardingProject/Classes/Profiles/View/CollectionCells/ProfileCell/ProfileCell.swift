@@ -42,7 +42,7 @@ final class ProfileCell: UICollectionViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     setupUI()
-    setupBindings()
+//    setupBindings()
   }
   
   override func prepareForReuse() {
@@ -69,6 +69,7 @@ final class ProfileCell: UICollectionViewCell {
     let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
     doneButton.rx.tap
       .subscribe(onNext: { _ in
+        self.roomTextField.text = self.rooms[self.roomsPickerView.selectedRow(inComponent: 0)]
         self.endEditing(true)
       })
     .disposed(by: disposeBag)
