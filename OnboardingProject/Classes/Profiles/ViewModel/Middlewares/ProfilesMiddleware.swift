@@ -55,17 +55,15 @@ extension ProfilesList {
       next(action)
       var state = store()
       
-      guard let action = action as? DeleteCell, let index = action.index else {
+      guard let action = action as? DeleteCell else {
         return
       }
       
-      state.availableRooms.append(state.profiles[index].room.rawValue)
-      if state.profiles[index] != state.profiles.last {
-        state.validatedCells.remove(at: index)
+      state.availableRooms.append(state.profiles[action.index].room.rawValue)
+      if state.profiles[action.index] != state.profiles.last {
+        state.validatedCells.remove(at: action.index)
       }
-      print("=== before delete \(state.profiles)")
-      state.profiles.remove(at: index)
-      print("=== after delete \(state.profiles)")
+      state.profiles.remove(at: action.index)
       
       dispatch(ProfilesList.UpdateState(state: state))
       

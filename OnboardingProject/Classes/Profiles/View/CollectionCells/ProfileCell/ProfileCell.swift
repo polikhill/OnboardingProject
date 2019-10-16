@@ -18,13 +18,12 @@ final class ProfileCell: UICollectionViewCell {
   @IBOutlet fileprivate var roomTextField: UITextField!
   @IBOutlet fileprivate var deleteButton: UIButton!
   
+  private var isEditing = false
   private let roomsPickerView = UIPickerView()
   private var renderedProps: Props?
   private var rooms = [String]()
   private let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
   var disposeBag = DisposeBag()
-  
-  fileprivate var cellIndex: Int?
   
   static let height: CGFloat = 140
   
@@ -32,7 +31,7 @@ final class ProfileCell: UICollectionViewCell {
     case valid, invalid, unchecked
   }
   
-  struct Props: Equatable, Diffable {
+  struct Props: Diffable {
     var diffIdentifier: String
     let name: String
     let surname: String
@@ -40,24 +39,84 @@ final class ProfileCell: UICollectionViewCell {
     let availableRooms: [String]
     let backgroundColor: UIColor
     let index: Int
+    let dispatch: ReduxStore<ProfilesList.State, ProfilesAction>.Dispatch
+    
+    static func == (lhs: ProfileCell.Props, rhs: ProfileCell.Props) -> Bool {
+      return lhs.diffIdentifier == rhs.diffIdentifier
+      && lhs.name == rhs.name
+      && lhs.surname == rhs.surname
+      && lhs.room == rhs.room
+      && lhs.availableRooms == rhs.availableRooms
+      && lhs.backgroundColor == rhs.backgroundColor
+      && lhs.index == rhs.index
+    }
   }
   
   override func awakeFromNib() {
     super.awakeFromNib()
     setupUI()
+    setupSwipeLeftGesture()
+    setupSwipeRightGesture()
+    setupBindings()
+  }
+  
+  override func setNeedsDisplay() {
+    super.setNeedsDisplay()
+    swipeToDelte()
+    swipeToInitialPosition()
   }
   
   override func prepareForReuse() {
     super.prepareForReuse()
     disposeBag = DisposeBag()
-    bindDoneButton()
+    setupBindings()
+    isEditing = false
   }
   
-  private func bindDoneButton() {
+  private func setupBindings() {
     doneButton.rx.tap
       .subscribe(onNext: { _ in
         self.roomTextField.text = self.rooms[self.roomsPickerView.selectedRow(inComponent: 0)]
         self.endEditing(true)
+      })
+      .disposed(by: disposeBag)
+    
+    nameTextField.rx.controlEvent(.allEditingEvents)
+      .subscribe(onNext: { _ in
+        guard let props = self.renderedProps else {
+          return
+        }
+        self.swipeToInitialPosition()
+        props.dispatch(ProfilesList.UpdateName(name: ProfileInfo.Name(rawValue: self.nameTextField.text ?? ""), index: props.index))
+      })
+    .disposed(by: disposeBag)
+    
+    surnameTextField.rx.controlEvent(.allEditingEvents)
+      .subscribe(onNext: { _ in
+        guard let props = self.renderedProps else {
+          return
+        }
+        self.swipeToInitialPosition()
+        props.dispatch(ProfilesList.UpdateSurname(surname: ProfileInfo.Surname(rawValue: self.surnameTextField.text ?? ""), index: props.index))
+      })
+      .disposed(by: disposeBag)
+    
+    roomTextField.rx.controlEvent(.allEditingEvents)
+      .subscribe(onNext: { _ in
+        guard let props = self.renderedProps else {
+          return
+        }
+        self.swipeToInitialPosition()
+        props.dispatch(ProfilesList.UpdateRoom(room: ProfileInfo.Room(rawValue: self.roomTextField.text ?? ""), index: props.index))
+      })
+      .disposed(by: disposeBag)
+    
+    deleteButton.rx.tap
+      .subscribe(onNext: { _ in
+        guard let props = self.renderedProps else {
+          return
+        }
+        props.dispatch(ProfilesList.DeleteCell(index: props.index))
       })
       .disposed(by: disposeBag)
   }
@@ -73,7 +132,6 @@ final class ProfileCell: UICollectionViewCell {
   private func setupToolBar() {
     let toolBar = UIToolbar()
     let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    bindDoneButton()
     toolBar.setItems([flexibleSpace, doneButton], animated: true)
     toolBar.sizeToFit()
     roomTextField.inputAccessoryView = toolBar
@@ -89,12 +147,10 @@ final class ProfileCell: UICollectionViewCell {
     if props.room != renderedProps?.room {
       roomTextField.text = props.room
     }
-    if props.index != renderedProps?.index {
-      cellIndex = props.index
-    }
     if props.backgroundColor != renderedProps?.backgroundColor {
       backgroundColor = props.backgroundColor
     }
+    isEditing = false
     setupRooms(props.availableRooms)
     renderedProps = props
   }
@@ -107,33 +163,41 @@ final class ProfileCell: UICollectionViewCell {
       }
       .disposed(by: disposeBag)
   }
+  
+  private func setupSwipeLeftGesture() {
+    let swipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeToDelte))
+    swipe.direction = .left
+    addGestureRecognizer(swipe)
+  }
+
+  @objc func swipeToDelte() {
+    if !isEditing {
+      isEditing.toggle()
+      UIView.animate(withDuration: 0.1) {
+        self.frame.origin.x -= 70
+      }
+    }
+  }
+
+  private func setupSwipeRightGesture() {
+    let swipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeToInitialPosition))
+    swipe.direction = .right
+    addGestureRecognizer(swipe)
+  }
+
+  @objc func swipeToInitialPosition() {
+    if isEditing {
+      isEditing.toggle()
+      UIView.animate(withDuration: 0.1) {
+        self.frame.origin.x += 70
+      }
+    }
+  }
 }
 
 extension ProfileCell: ListBindable {
   func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? DiffableBox<Props> else { return }
     render(props: viewModel.value)
-  }
-}
-
-extension Reactive where Base: ProfileCell {
-  var name: Observable<(Int?, ProfileInfo.Name)> {
-    return base.nameTextField.rx.controlEvent(.editingChanged)
-      .map({(self.base.cellIndex, ProfileInfo.Name(rawValue: self.base.nameTextField.text ?? ""))})
-  }
-  
-  var surname: Observable<(Int?, ProfileInfo.Surname)> {
-    return base.surnameTextField.rx.controlEvent(.editingChanged)
-      .map({(self.base.cellIndex, ProfileInfo.Surname(rawValue: self.base.surnameTextField.text ?? ""))})
-  }
-  
-  var room: Observable<(Int?, ProfileInfo.Room)> {
-    return base.roomTextField.rx.controlEvent(.editingChanged)
-      .map({(self.base.cellIndex, ProfileInfo.Room(rawValue: self.base.roomTextField.text ?? ""))})
-  }
-  
-  var deleteCell: Observable<Int?> {
-    return base.deleteButton.rx.tap.asObservable()
-    .map({self.base.cellIndex})
   }
 }

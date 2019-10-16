@@ -26,33 +26,9 @@ extension ProfilesList {
           return ProfilesList.AddNewCellTap()
         })
       
-      let updateName = inputs.nameSubject
-        .map ({ index, name -> ProfilesAction in
-          return ProfilesList.UpdateName(name: name, index: index)
-        })
-      
-      let updateSurname = inputs.surnameSubject
-        .map ({ index, surname -> ProfilesAction in
-          return ProfilesList.UpdateSurname(surname: surname, index: index)
-        })
-      
-      let updateRoom = inputs.roomSubject
-        .map ({ index, room -> ProfilesAction in
-          return ProfilesList.UpdateRoom(room: room, index: index)
-        })
-      
-      let deleteCell = inputs.deleteCell
-      .map ({ index -> ProfilesAction in
-        return ProfilesList.DeleteCell(index: index)
-      })
-      
       self.actions = Observable.merge(
         initalSetupActions,
-        addNewCellAction,
-        updateName,
-        updateSurname,
-        updateRoom,
-        deleteCell
+        addNewCellAction
       )
     }
   }

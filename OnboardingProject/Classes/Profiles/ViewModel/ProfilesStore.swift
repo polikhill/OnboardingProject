@@ -50,7 +50,7 @@ extension ProfilesList {
   }
   
   struct DeleteCell: ProfilesAction {
-    let index: Int?
+    let index: Int
   }
   
   struct UpdateState: ProfilesAction {

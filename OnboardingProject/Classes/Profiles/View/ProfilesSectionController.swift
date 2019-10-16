@@ -14,10 +14,6 @@ import RxCocoa
 final class ProfilesSectionController: ListBindingSectionController<DiffableBox<Section>> {
   
   fileprivate let addNewCellSubject = PublishSubject<Void>()
-  let nameSubject = PublishSubject<(Int?, ProfileInfo.Name)>()
-  let surnameSubject = PublishSubject<(Int?, ProfileInfo.Surname)>()
-  let roomSubject = PublishSubject<(Int?, ProfileInfo.Room)>()
-  let deleteCell = PublishSubject<Int?>()
   
   let disposeBag = DisposeBag()
   
@@ -44,23 +40,6 @@ extension ProfilesSectionController: ListBindingSectionControllerDataSource {
     switch viewModel {
     case is DiffableBox<ProfileCell.Props>:
       guard let cell = collectionContext?.cell(type: ProfileCell.self, index: index, for: self) else { fatalError() }
-        
-      cell.rx.name
-        .bind(to: nameSubject)
-        .disposed(by: cell.disposeBag)
-      cell.rx.surname
-        .bind(to: surnameSubject)
-        .disposed(by: cell.disposeBag)
-      cell.rx.room
-        .bind(to: roomSubject)
-        .disposed(by: cell.disposeBag)
-      
-      cell.rx.deleteCell
-      .bind(to: deleteCell)
-      .disposed(by: cell.disposeBag)
-      
-      print("=== pr index \(index)")
-      
       return cell
       
     case is DiffableBox<AddingCell.Props>:
@@ -70,7 +49,6 @@ extension ProfilesSectionController: ListBindingSectionControllerDataSource {
         .bind(to: addNewCellSubject)
         .disposed(by: cell.disposeBag)
       
-      print("=== bt index \(index)")
       return cell
     default: fatalError() 
     }
@@ -83,14 +61,11 @@ extension ProfilesSectionController: ListBindingSectionControllerDataSource {
     
     guard let width = collectionContext?.containerSize.width else { fatalError() }
     
-    var height: CGFloat {
-      switch viewModel {
-      case is DiffableBox<ProfileCell.Props>: return ProfileCell.height
-      case is DiffableBox<AddingCell.Props>: return AddingCell.height
-      default: return 0
-      }
+    switch viewModel {
+    case is DiffableBox<ProfileCell.Props>: return CGSize(width: width + 70, height: ProfileCell.height)
+    case is DiffableBox<AddingCell.Props>: return CGSize(width: width, height:  AddingCell.height)
+    default: return .zero
     }
-    return CGSize(width: width, height: height)
   }
 }
 
