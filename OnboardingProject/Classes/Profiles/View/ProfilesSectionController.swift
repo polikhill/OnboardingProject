@@ -17,6 +17,7 @@ final class ProfilesSectionController: ListBindingSectionController<DiffableBox<
   let nameSubject = PublishSubject<(Int?, ProfileInfo.Name)>()
   let surnameSubject = PublishSubject<(Int?, ProfileInfo.Surname)>()
   let roomSubject = PublishSubject<(Int?, ProfileInfo.Room)>()
+  let deleteCell = PublishSubject<Int?>()
   
   let disposeBag = DisposeBag()
   
@@ -53,6 +54,10 @@ extension ProfilesSectionController: ListBindingSectionControllerDataSource {
       cell.rx.room
         .bind(to: roomSubject)
         .disposed(by: cell.disposeBag)
+      
+      cell.rx.deleteCell
+      .bind(to: deleteCell)
+      .disposed(by: cell.disposeBag)
       
       print("=== pr index \(index)")
       

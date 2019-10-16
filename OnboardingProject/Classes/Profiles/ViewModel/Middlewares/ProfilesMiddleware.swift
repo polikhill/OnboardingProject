@@ -49,4 +49,26 @@ extension ProfilesList {
       dispatch(ProfilesList.Validate(validatedCells: validatedCells))
     }
   }
+  
+  static func makeDeleteCellMiddleware() -> Store.Middleware {
+    return Store.makeMiddleware { dispatch, store, next, action in
+      next(action)
+      var state = store()
+      
+      guard let action = action as? DeleteCell, let index = action.index else {
+        return
+      }
+      
+      state.availableRooms.append(state.profiles[index].room.rawValue)
+      if state.profiles[index] != state.profiles.last {
+        state.validatedCells.remove(at: index)
+      }
+      print("=== before delete \(state.profiles)")
+      state.profiles.remove(at: index)
+      print("=== after delete \(state.profiles)")
+      
+      dispatch(ProfilesList.UpdateState(state: state))
+      
+    }
+  }
 }

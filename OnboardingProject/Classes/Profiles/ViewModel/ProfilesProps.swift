@@ -46,8 +46,8 @@ extension ProfilesList {
   
   static private func makeColor(from state: ProfileCell.ValidationState) -> UIColor {
     switch state {
-    case .invalid: return .red
-    case .valid: return .green
+    case .invalid: return .lightishRed
+    case .valid: return .freshGreen
     case .unchecked: return .white
     }
   }

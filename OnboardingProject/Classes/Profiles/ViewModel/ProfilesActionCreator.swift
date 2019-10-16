@@ -41,12 +41,18 @@ extension ProfilesList {
           return ProfilesList.UpdateRoom(room: room, index: index)
         })
       
+      let deleteCell = inputs.deleteCell
+      .map ({ index -> ProfilesAction in
+        return ProfilesList.DeleteCell(index: index)
+      })
+      
       self.actions = Observable.merge(
         initalSetupActions,
         addNewCellAction,
         updateName,
         updateSurname,
-        updateRoom
+        updateRoom,
+        deleteCell
       )
     }
   }

@@ -16,10 +16,12 @@ final class ProfileCell: UICollectionViewCell {
   @IBOutlet fileprivate var nameTextField: UITextField!
   @IBOutlet fileprivate var surnameTextField: UITextField!
   @IBOutlet fileprivate var roomTextField: UITextField!
+  @IBOutlet fileprivate var deleteButton: UIButton!
   
   private let roomsPickerView = UIPickerView()
   private var renderedProps: Props?
   private var rooms = [String]()
+  private let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
   var disposeBag = DisposeBag()
   
   fileprivate var cellIndex: Int?
@@ -48,24 +50,30 @@ final class ProfileCell: UICollectionViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     disposeBag = DisposeBag()
+    bindDoneButton()
   }
   
-  private func setupUI() {
-    roomTextField.inputView = roomsPickerView
-    setupToolBar()
-  }
-  
-  private func setupToolBar() {
-    let toolBar = UIToolbar()
-    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
+  private func bindDoneButton() {
     doneButton.rx.tap
       .subscribe(onNext: { _ in
         self.roomTextField.text = self.rooms[self.roomsPickerView.selectedRow(inComponent: 0)]
         self.endEditing(true)
       })
       .disposed(by: disposeBag)
-    
+  }
+  
+  private func setupUI() {
+    roomTextField.inputView = roomsPickerView
+    deleteButton.setTitle(nil, for: .normal)
+    deleteButton.setImage(#imageLiteral(resourceName: "trasher").withRenderingMode(.alwaysTemplate), for: .normal)
+    deleteButton.tintColor = .red
+    setupToolBar()
+  }
+  
+  private func setupToolBar() {
+    let toolBar = UIToolbar()
+    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    bindDoneButton()
     toolBar.setItems([flexibleSpace, doneButton], animated: true)
     toolBar.sizeToFit()
     roomTextField.inputAccessoryView = toolBar
@@ -110,17 +118,22 @@ extension ProfileCell: ListBindable {
 
 extension Reactive where Base: ProfileCell {
   var name: Observable<(Int?, ProfileInfo.Name)> {
-    return base.nameTextField.rx.controlEvent(.editingDidEnd)
+    return base.nameTextField.rx.controlEvent(.editingChanged)
       .map({(self.base.cellIndex, ProfileInfo.Name(rawValue: self.base.nameTextField.text ?? ""))})
   }
   
   var surname: Observable<(Int?, ProfileInfo.Surname)> {
-    return base.surnameTextField.rx.controlEvent(.editingDidEnd)
+    return base.surnameTextField.rx.controlEvent(.editingChanged)
       .map({(self.base.cellIndex, ProfileInfo.Surname(rawValue: self.base.surnameTextField.text ?? ""))})
   }
   
   var room: Observable<(Int?, ProfileInfo.Room)> {
-    return base.roomTextField.rx.controlEvent(.editingDidEnd)
+    return base.roomTextField.rx.controlEvent(.editingChanged)
       .map({(self.base.cellIndex, ProfileInfo.Room(rawValue: self.base.roomTextField.text ?? ""))})
+  }
+  
+  var deleteCell: Observable<Int?> {
+    return base.deleteButton.rx.tap.asObservable()
+    .map({self.base.cellIndex})
   }
 }

@@ -16,9 +16,10 @@ extension ProfilesList {
     struct Inputs {
       let viewWillAppear: Observable<Void>
       let addNewCell: Observable<Void>
-      let nameSubject: PublishSubject<(Int?, ProfileInfo.Name)>
-      let surnameSubject: PublishSubject<(Int?, ProfileInfo.Surname)>
-      let roomSubject: PublishSubject<(Int?, ProfileInfo.Room)>
+      let nameSubject: Observable<(Int?, ProfileInfo.Name)>
+      let surnameSubject: Observable<(Int?, ProfileInfo.Surname)>
+      let roomSubject: Observable<(Int?, ProfileInfo.Room)>
+      let deleteCell: Observable<Int?>
     }
 
     struct Outputs {
@@ -34,9 +35,13 @@ extension ProfilesList {
         sectionsID: ""
       )
       
-      let addCellMiddleware = ProfilesList.makeAddNewCellMiddleware()
-      let validationMiddleware = ProfilesList.makeValidationMiddleware()
-      let store = Store(initialState: initialState, reducer: ProfilesList.reduce, middlewares: [addCellMiddleware, validationMiddleware])
+      let addCellMiddleware = makeAddNewCellMiddleware()
+      let validationMiddleware = makeValidationMiddleware()
+      let deleteionMiddleware = makeDeleteCellMiddleware()
+      let store = Store(
+        initialState: initialState,
+        reducer: ProfilesList.reduce,
+        middlewares: [addCellMiddleware, validationMiddleware, deleteionMiddleware])
       
       let props = store.state
         .map(ProfilesList.makeProfileViewProps)

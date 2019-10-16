@@ -16,6 +16,7 @@ final class ProfilesView: UIView {
   let nameSubject = PublishSubject<(Int?, ProfileInfo.Name)>()
   let surnameSubject = PublishSubject<(Int?, ProfileInfo.Surname)>()
   let roomSubject = PublishSubject<(Int?, ProfileInfo.Room)>()
+  let deleteCell = PublishSubject<Int?>()
   
   private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
   fileprivate let addNewCellSubject = PublishSubject<Void>()
@@ -92,6 +93,10 @@ extension ProfilesView: ListAdapterDataSource {
     
     profilesController.roomSubject
       .bind(to: roomSubject)
+      .disposed(by: profilesController.disposeBag)
+    
+    profilesController.deleteCell
+      .bind(to: deleteCell)
       .disposed(by: profilesController.disposeBag)
     
     return profilesController
