@@ -36,10 +36,9 @@ extension ProfilesList {
         room: state.profiles[index].room.rawValue,
         availableRooms: state.availableRooms,
         backgroundColor: makeColor(from: cellState),
-        index: index,
-        dispatch: dispatch
+        index: index
       )
-      diffableProps.append(DiffableBox(value: props))
+      diffableProps.append(DiffableBox(value: props, dispatch: dispatch))
     }
     
     return diffableProps

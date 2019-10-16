@@ -20,6 +20,7 @@ final class ProfileCell: UICollectionViewCell {
   
   private var isEditing = false
   private let roomsPickerView = UIPickerView()
+  private var viewModel: DiffableBox<Props>?
   private var renderedProps: Props?
   private var rooms = [String]()
   private let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
@@ -39,17 +40,6 @@ final class ProfileCell: UICollectionViewCell {
     let availableRooms: [String]
     let backgroundColor: UIColor
     let index: Int
-    let dispatch: ReduxStore<ProfilesList.State, ProfilesAction>.Dispatch
-    
-    static func == (lhs: ProfileCell.Props, rhs: ProfileCell.Props) -> Bool {
-      return lhs.diffIdentifier == rhs.diffIdentifier
-      && lhs.name == rhs.name
-      && lhs.surname == rhs.surname
-      && lhs.room == rhs.room
-      && lhs.availableRooms == rhs.availableRooms
-      && lhs.backgroundColor == rhs.backgroundColor
-      && lhs.index == rhs.index
-    }
   }
   
   override func awakeFromNib() {
@@ -83,40 +73,40 @@ final class ProfileCell: UICollectionViewCell {
     
     nameTextField.rx.controlEvent(.allEditingEvents)
       .subscribe(onNext: { _ in
-        guard let props = self.renderedProps else {
+        guard let props = self.renderedProps, let dispatch = self.viewModel?.dispatch else {
           return
         }
         self.swipeToInitialPosition()
-        props.dispatch(ProfilesList.UpdateName(name: ProfileInfo.Name(rawValue: self.nameTextField.text ?? ""), index: props.index))
+        dispatch(ProfilesList.UpdateName(name: ProfileInfo.Name(rawValue: self.nameTextField.text ?? ""), index: props.index))
       })
     .disposed(by: disposeBag)
     
     surnameTextField.rx.controlEvent(.allEditingEvents)
       .subscribe(onNext: { _ in
-        guard let props = self.renderedProps else {
+        guard let props = self.renderedProps, let dispatch = self.viewModel?.dispatch else {
           return
         }
         self.swipeToInitialPosition()
-        props.dispatch(ProfilesList.UpdateSurname(surname: ProfileInfo.Surname(rawValue: self.surnameTextField.text ?? ""), index: props.index))
+        dispatch(ProfilesList.UpdateSurname(surname: ProfileInfo.Surname(rawValue: self.surnameTextField.text ?? ""), index: props.index))
       })
       .disposed(by: disposeBag)
     
     roomTextField.rx.controlEvent(.allEditingEvents)
       .subscribe(onNext: { _ in
-        guard let props = self.renderedProps else {
+        guard let props = self.renderedProps, let dispatch = self.viewModel?.dispatch else {
           return
         }
         self.swipeToInitialPosition()
-        props.dispatch(ProfilesList.UpdateRoom(room: ProfileInfo.Room(rawValue: self.roomTextField.text ?? ""), index: props.index))
+        dispatch(ProfilesList.UpdateRoom(room: ProfileInfo.Room(rawValue: self.roomTextField.text ?? ""), index: props.index))
       })
       .disposed(by: disposeBag)
     
     deleteButton.rx.tap
       .subscribe(onNext: { _ in
-        guard let props = self.renderedProps else {
+        guard let props = self.renderedProps, let dispatch = self.viewModel?.dispatch else {
           return
         }
-        props.dispatch(ProfilesList.DeleteCell(index: props.index))
+        dispatch(ProfilesList.DeleteCell(index: props.index))
       })
       .disposed(by: disposeBag)
   }
@@ -199,5 +189,6 @@ extension ProfileCell: ListBindable {
   func bindViewModel(_ viewModel: Any) {
     guard let viewModel = viewModel as? DiffableBox<Props> else { return }
     render(props: viewModel.value)
+    self.viewModel = viewModel
   }
 }

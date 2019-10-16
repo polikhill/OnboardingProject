@@ -17,16 +17,23 @@ final class DiffableBox<T: Diffable>: ListDiffable {
   
   let value: T
   let identifier: NSObjectProtocol
+  let dispatch: ReduxStore<ProfilesList.State, ProfilesAction>.Dispatch?
   let equal: (T, T) -> Bool
   
-  init(value: T, identifier: NSObjectProtocol, equal: @escaping(T, T) -> Bool) {
+  init(
+    value: T,
+    identifier: NSObjectProtocol,
+    equal: @escaping(T, T) -> Bool,
+    dispatch: ReduxStore<ProfilesList.State, ProfilesAction>.Dispatch? = nil
+    ) {
     self.value = value
     self.identifier = identifier
     self.equal = equal
+    self.dispatch = dispatch
   }
   
-  convenience init(value: T) {
-    self.init(value: value, identifier: value.diffIdentifier as NSObjectProtocol, equal: ==)
+  convenience init(value: T, dispatch: ReduxStore<ProfilesList.State, ProfilesAction>.Dispatch? = nil) {
+    self.init(value: value, identifier: value.diffIdentifier as NSObjectProtocol, equal: ==, dispatch: dispatch)
   }
   
   // IGListDiffable
