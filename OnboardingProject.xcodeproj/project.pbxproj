@@ -37,7 +37,6 @@
 		DD9014CB2356FACD00556366 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9014CA2356FACD00556366 /* UIColorExtensions.swift */; };
 		DDBB808B234F61650020F888 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB8089234F61650020F888 /* ProfileCell.swift */; };
 		DDBB808C234F61650020F888 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDBB808A234F61650020F888 /* ProfileCell.xib */; };
-		DDBB808E2350AD140020F888 /* ProfilesMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */; };
 		DDBB80902350BA400020F888 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB808F2350BA400020F888 /* HelperFunctions.swift */; };
 		DDBB8092235606B10020F888 /* Tagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBB8091235606B10020F888 /* Tagged.swift */; };
 /* End PBXBuildFile section */
@@ -76,7 +75,6 @@
 		DD9014CA2356FACD00556366 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		DDBB8089234F61650020F888 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		DDBB808A234F61650020F888 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
-		DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesMiddleware.swift; sourceTree = "<group>"; };
 		DDBB808F2350BA400020F888 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		DDBB8091235606B10020F888 /* Tagged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tagged.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,7 +180,6 @@
 		DD591E7E234DFAB70039814A /* Middlewares */ = {
 			isa = PBXGroup;
 			children = (
-				DDBB808D2350AD140020F888 /* ProfilesMiddleware.swift */,
 			);
 			path = Middlewares;
 			sourceTree = "<group>";
@@ -409,7 +406,6 @@
 				DD383DE7234F3BBA0076F71A /* ProfilesNamespace.swift in Sources */,
 				DDBB808B234F61650020F888 /* ProfileCell.swift in Sources */,
 				DD30563D234F09D900505D65 /* IGListKitExtensions.swift in Sources */,
-				DDBB808E2350AD140020F888 /* ProfilesMiddleware.swift in Sources */,
 				DD591E77234DF7570039814A /* ProfilesSectionController.swift in Sources */,
 				DD383DE5234F3B770076F71A /* ProfilesStore.swift in Sources */,
 			);

@@ -28,16 +28,13 @@ extension ProfilesList {
         profiles: [],
         availableRooms: MeetingRooms.rooms,
         validatedCells: [],
-        sectionsID: ""
+        sectionsID: UUID().uuidString
       )
       
-      let addCellMiddleware = makeAddNewCellMiddleware()
-      let validationMiddleware = makeValidationMiddleware()
-      let deleteionMiddleware = makeDeleteCellMiddleware()
       let store = Store(
         initialState: initialState,
         reducer: ProfilesList.reduce,
-        middlewares: [addCellMiddleware, validationMiddleware, deleteionMiddleware])
+        middlewares: [])
       
       let props = store.state
         .map({ProfilesList.makeProfileViewProps(from: $0, dispatch: store.dispatch)})
