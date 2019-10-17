@@ -10,18 +10,18 @@ import UIKit
 
 extension ProfilesList {
   
-  static func makeProfileViewProps(from state: State) -> ProfilesView.Props {
+  static func makeProfileViewProps(from state: State, dispatch: @escaping ReduxStore<ProfilesList.State, ProfilesAction>.Dispatch) -> ProfilesView.Props {
     return ProfilesView.Props(
       section: DiffableBox(
         value: Section(
           addingCellProps: DiffableBox(value: AddingCell.Props()),
-          profileCellProps: makeProfileCellProps(from: state), diffIdentifier: state.sectionsID
+          profileCellProps: makeProfileCellProps(from: state, dispatch: dispatch), diffIdentifier: state.sectionsID
         )
       )
     )
   }
   
-  static private func makeProfileCellProps(from state: State) -> [DiffableBox<ProfileCell.Props>] {
+  static private func makeProfileCellProps(from state: State, dispatch: @escaping ReduxStore<ProfilesList.State, ProfilesAction>.Dispatch) -> [DiffableBox<ProfileCell.Props>] {
     
     var diffableProps = [DiffableBox<ProfileCell.Props>]()
     for index in 0..<state.profiles.count {
@@ -38,7 +38,7 @@ extension ProfilesList {
         backgroundColor: makeColor(from: cellState),
         index: index
       )
-      diffableProps.append(DiffableBox(value: props))
+      diffableProps.append(DiffableBox(value: props, dispatch: dispatch))
     }
     
     return diffableProps
@@ -46,8 +46,8 @@ extension ProfilesList {
   
   static private func makeColor(from state: ProfileCell.ValidationState) -> UIColor {
     switch state {
-    case .invalid: return .red
-    case .valid: return .green
+    case .invalid: return .lightishRed
+    case .valid: return .freshGreen
     case .unchecked: return .white
     }
   }

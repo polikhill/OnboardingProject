@@ -16,9 +16,6 @@ extension ProfilesList {
     struct Inputs {
       let viewWillAppear: Observable<Void>
       let addNewCell: Observable<Void>
-      let nameSubject: PublishSubject<(Int?, ProfileInfo.Name)>
-      let surnameSubject: PublishSubject<(Int?, ProfileInfo.Surname)>
-      let roomSubject: PublishSubject<(Int?, ProfileInfo.Room)>
     }
 
     struct Outputs {
@@ -31,15 +28,16 @@ extension ProfilesList {
         profiles: [],
         availableRooms: MeetingRooms.rooms,
         validatedCells: [],
-        sectionsID: ""
+        sectionsID: UUID().uuidString
       )
       
-      let addCellMiddleware = ProfilesList.makeAddNewCellMiddleware()
-      let validationMiddleware = ProfilesList.makeValidationMiddleware()
-      let store = Store(initialState: initialState, reducer: ProfilesList.reduce, middlewares: [addCellMiddleware, validationMiddleware])
+      let store = Store(
+        initialState: initialState,
+        reducer: ProfilesList.reduce,
+        middlewares: [])
       
       let props = store.state
-        .map(ProfilesList.makeProfileViewProps)
+        .map({ProfilesList.makeProfileViewProps(from: $0, dispatch: store.dispatch)})
       
       let actionCreator = ActionCreator(inputs: inputs)
       

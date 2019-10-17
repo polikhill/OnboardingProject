@@ -38,10 +38,7 @@ final class ProfilesViewController: UIViewController {
       
         let inputs = ProfilesList.ProfilesViewModel.Inputs(
             viewWillAppear: rx.methodInvoked(#selector(viewWillAppear(_:))).voidValues(),
-            addNewCell: contentView.rx.addNewCell,
-            nameSubject: contentView.nameSubject,
-            surnameSubject: contentView.surnameSubject,
-            roomSubject: contentView.roomSubject
+            addNewCell: contentView.rx.addNewCell
         )
       
       let outputs = viewModel.makeOutputs(from: inputs)
